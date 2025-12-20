@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commercial Invoice - Mockups</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .invoice-container {
+      background: white;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 5px;
+    }
+
+    .invoice-header h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .invoice-notice {
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+
+    .page-info {
+      text-align: right;
+      font-size: 11px;
+    }
+
+    .page-info input {
+      width: 30px;
+      text-align: center;
+      border: none;
+      border-bottom: 1px solid #000;
+    }
+
+    /* Form table structure */
+    .form-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #000;
+    }
+
+    .form-table td,
+    .form-table th {
+      border: 1px solid #000;
+      padding: 4px 6px;
+      vertical-align: top;
+      font-size: 11px;
+    }
+
+    .form-table .label {
+      background: #f5deb3;
+      font-weight: bold;
+      font-size: 10px;
+    }
+
+    .form-table .section-header {
+      background: #f5deb3;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    .form-table input,
+    .form-table select,
+    .form-table textarea {
+      width: 100%;
+      border: none;
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+      background: transparent;
+    }
+
+    .form-table input:focus,
+    .form-table select:focus,
+    .form-table textarea:focus {
+      outline: none;
+      background: #fffef0;
+    }
+
+    .form-table textarea {
+      resize: none;
+      min-height: 60px;
+    }
+
+    .field-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field-label {
+      font-weight: bold;
+      font-size: 10px;
+      color: #000;
+    }
+
+    .field-value {
+      min-height: 16px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+    }
+
+    /* Items table */
+    .items-header {
+      background: #f5deb3 !important;
+    }
+
+    .items-header th {
+      text-align: center;
+      font-weight: bold;
+      font-size: 10px;
+      padding: 6px 4px;
+    }
+
+    .items-body td {
+      text-align: center;
+      height: 50px;
+    }
+
+    .items-body td input {
+      text-align: center;
+    }
+
+    .items-body td:nth-child(5) input {
+      text-align: left;
+    }
+
+    /* Totals section */
+    .totals-row td {
+      background: #f5deb3;
+      font-weight: bold;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .summary-table td {
+      border: 1px solid #000;
+      padding: 3px 6px;
+      font-size: 11px;
+    }
+
+    .summary-table .summary-label {
+      background: #f5deb3;
+      font-weight: bold;
+      width: 70%;
+    }
+
+    .summary-table .summary-value {
+      text-align: right;
+    }
+
+    .summary-table input {
+      width: 100%;
+      border: none;
+      text-align: right;
+      font-size: 11px;
+      background: transparent;
+    }
+
+    /* Declaration */
+    .declaration-text {
+      font-size: 9px;
+      line-height: 1.3;
+    }
+
+    .signature-line {
+      border-bottom: 1px solid #000;
+      min-height: 20px;
+      margin-top: 10px;
+    }
+
+    .rev-number {
+      text-align: right;
+      font-size: 10px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Two column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .two-col > td {
+      padding: 0 !important;
+    }
+
+    .party-section {
+      height: 100%;
+    }
+
+    .party-section td {
+      border: none;
+      border-bottom: 1px solid #000;
+      padding: 2px 6px;
+    }
+
+    .party-section tr:last-child td {
+      border-bottom: none;
+    }
+
+    .no-border-right {
+      border-right: none !important;
+    }
+
+    .no-border-left {
+      border-left: none !important;
+    }
+
+    .broker-section input {
+      border-bottom: 1px solid #000;
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: white; }
+      header, .breadcrumb, .form-actions { display: none; }
+      .invoice-container { padding: 0; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="mockup-header">
+      <h1><a href="/">Mockups</a></h1>
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span>Forms</span>
+        <span>/</span>
+        <span>International</span>
+        <span>/</span>
+        <span>Commercial Invoice</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="invoice-container">
+      <form id="commercial-invoice-form">
+        <!-- Header -->
+        <div class="invoice-header">
+          <div>
+            <p class="invoice-notice">This invoice must be completed in English.</p>
+          </div>
+          <h1>Commercial Invoice</h1>
+          <div class="page-info">
+            <input type="text" value="1" style="width:25px"> <input type="text" value="1" style="width:25px"><br>
+            Page _______ of _____
+          </div>
+        </div>
+
+        <!-- Top Info Section -->
+        <table class="form-table">
+          <tr>
+            <td class="label" style="width:15%">Ship Date:</td>
+            <td style="width:18%"><input type="text" id="ship-date"></td>
+            <td class="label" style="width:20%">Air Waybill No. / Tracking No.:</td>
+            <td style="width:15%"><input type="text" id="awb"></td>
+            <td class="label" style="width:15%">Payment Terms:</td>
+            <td style="width:10%"><input type="text" id="payment-terms"></td>
+            <td class="label">Bill of Lading:</td>
+            <td><input type="text" id="bol"></td>
+          </tr>
+          <tr>
+            <td class="label">Invoice No.:</td>
+            <td><input type="text" id="invoice-no"></td>
+            <td class="label">Purchase Order No.:</td>
+            <td><input type="text" id="po-no"></td>
+            <td class="label">Purpose of Shipment:</td>
+            <td colspan="3"><input type="text" id="purpose"></td>
+          </tr>
+        </table>
+
+        <!-- Exporter / Importer Section -->
+        <table class="form-table" style="margin-top:-1px">
+          <tr>
+            <td style="width:50%; padding:0; vertical-align:top;">
+              <table class="party-section" style="width:100%; border-collapse:collapse;">
+                <tr><td class="section-header" colspan="2">EXPORTER:</td></tr>
+                <tr><td class="field-label" style="width:35%">Tax ID#:</td><td><input type="text" id="exp-tax-id"></td></tr>
+                <tr><td class="field-label">Contact Name:</td><td><input type="text" id="exp-contact"></td></tr>
+                <tr><td class="field-label">Telephone No. :</td><td><input type="text" id="exp-phone"></td></tr>
+                <tr><td class="field-label">E-Mail:</td><td><input type="text" id="exp-email"></td></tr>
+                <tr><td class="field-label">Company Name/Address:</td><td><textarea id="exp-address" rows="4"></textarea></td></tr>
+                <tr><td class="field-label">Country:</td><td><input type="text" id="exp-country"></td></tr>
+                <tr>
+                  <td class="field-label">Parties to Transaction:</td>
+                  <td>
+                    <div class="checkbox-group">
+                      <label><input type="checkbox" name="related"> Related</label>
+                      <label><input type="checkbox" name="related" checked> Non-Related</label>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td style="width:50%; padding:0; vertical-align:top;">
+              <table class="party-section" style="width:100%; border-collapse:collapse;">
+                <tr><td class="section-header" colspan="2">IMPORTER:</td></tr>
+                <tr><td class="field-label" style="width:35%">Tax ID:</td><td><input type="text" id="imp-tax-id"></td></tr>
+                <tr><td class="field-label">Company Name/Address:</td><td><textarea id="imp-address" rows="4"></textarea></td></tr>
+                <tr><td class="field-label">Country:</td><td><input type="text" id="imp-country"></td></tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0; vertical-align:top;">
+              <table class="party-section" style="width:100%; border-collapse:collapse;">
+                <tr><td class="section-header" colspan="2">CONSIGNEE:</td></tr>
+                <tr><td class="field-label" style="width:35%">Tax ID#:</td><td><input type="text" id="con-tax-id"></td></tr>
+                <tr><td class="field-label">Contact Name:</td><td><input type="text" id="con-contact"></td></tr>
+                <tr><td class="field-label">Telephone No. :</td><td><input type="text" id="con-phone"></td></tr>
+                <tr><td class="field-label">E-Mail:</td><td><input type="text" id="con-email"></td></tr>
+                <tr><td class="field-label">Company Name/Address:</td><td><textarea id="con-address" rows="3"></textarea></td></tr>
+                <tr><td class="field-label">Country:</td><td><input type="text" id="con-country"></td></tr>
+              </table>
+            </td>
+            <td style="padding:0; vertical-align:top;">
+              <table class="party-section" style="width:100%; border-collapse:collapse;">
+                <tr><td class="section-header" colspan="2">SOLD TO:</td></tr>
+                <tr><td class="field-label" style="width:35%">Tax ID#:</td><td><input type="text" id="sold-tax-id"></td></tr>
+                <tr><td class="field-label">Company Name/Address:</td><td><textarea id="sold-address" rows="4"></textarea></td></tr>
+                <tr><td class="field-label">Country:</td><td><input type="text" id="sold-country"></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Broker Section -->
+        <table class="form-table broker-section" style="margin-top:-1px">
+          <tr>
+            <td colspan="6" class="label">If there is a designated broker for this shipment, please provide contact information</td>
+          </tr>
+          <tr>
+            <td class="label" style="width:15%">Name of Broker</td>
+            <td style="width:35%"><input type="text" id="broker-name"></td>
+            <td class="label" style="width:10%">Tel. No</td>
+            <td style="width:15%"><input type="text" id="broker-tel"></td>
+            <td class="label" style="width:12%">Contact Name</td>
+            <td><input type="text" id="broker-contact"></td>
+          </tr>
+          <tr>
+            <td class="label">Duties and Taxes Payable by</td>
+            <td colspan="5">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="duties"> Exporter</label>
+                <label><input type="checkbox" name="duties" checked> Consignee</label>
+                <label><input type="checkbox" name="duties"> Other</label>
+                <span style="margin-left:20px">If Other, please specify <input type="text" id="duties-other" style="width:200px; border-bottom:1px solid #000"></span>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Items Table -->
+        <table class="form-table" style="margin-top:-1px">
+          <thead>
+            <tr class="items-header">
+              <th style="width:7%">No. of<br>Packages</th>
+              <th style="width:7%">No. of<br>Units</th>
+              <th style="width:9%">Net Weight<br>(LBS / KGS)</th>
+              <th style="width:7%">Unit of<br>Measure</th>
+              <th style="width:25%">Description of Goods</th>
+              <th style="width:12%">Harmonized<br>Tariff Number</th>
+              <th style="width:10%">Country of<br>Manufacturer</th>
+              <th style="width:11%">Unit<br>Value</th>
+              <th style="width:12%">Total<br>Value</th>
+            </tr>
+          </thead>
+          <tbody class="items-body" id="items-body">
+            <tr>
+              <td><input type="text" class="pkg-input"></td>
+              <td><input type="text" class="units-input"></td>
+              <td><input type="text" class="weight-input"></td>
+              <td><input type="text" class="measure-input"></td>
+              <td><input type="text" class="desc-input" style="text-align:left"></td>
+              <td><input type="text" class="hs-input"></td>
+              <td><input type="text" class="origin-input"></td>
+              <td><input type="text" class="unit-price-input"></td>
+              <td><input type="text" class="total-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="pkg-input"></td>
+              <td><input type="text" class="units-input"></td>
+              <td><input type="text" class="weight-input"></td>
+              <td><input type="text" class="measure-input"></td>
+              <td><input type="text" class="desc-input" style="text-align:left"></td>
+              <td><input type="text" class="hs-input"></td>
+              <td><input type="text" class="origin-input"></td>
+              <td><input type="text" class="unit-price-input"></td>
+              <td><input type="text" class="total-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="pkg-input"></td>
+              <td><input type="text" class="units-input"></td>
+              <td><input type="text" class="weight-input"></td>
+              <td><input type="text" class="measure-input"></td>
+              <td><input type="text" class="desc-input" style="text-align:left"></td>
+              <td><input type="text" class="hs-input"></td>
+              <td><input type="text" class="origin-input"></td>
+              <td><input type="text" class="unit-price-input"></td>
+              <td><input type="text" class="total-input"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Totals Row & Summary -->
+        <table class="form-table" style="margin-top:-1px">
+          <tr>
+            <td style="width:60%; padding:0; vertical-align:top">
+              <table style="width:100%; border-collapse:collapse;">
+                <tr class="totals-row">
+                  <td style="width:12%; border:1px solid #000">Total<br>Pkgs</td>
+                  <td style="width:12%; border:1px solid #000">Total<br>Units</td>
+                  <td style="width:14%; border:1px solid #000">Total Net<br>Weight</td>
+                  <td style="width:12%; border:1px solid #000">(Indicate<br>LBS/KGS)</td>
+                  <td style="width:14%; border:1px solid #000">Total Gross<br>Weight</td>
+                  <td style="width:12%; border:1px solid #000">(Indicate<br>LBS/KGS)</td>
+                  <td style="width:24%; border:1px solid #000">Terms<br>of Sale:</td>
+                </tr>
+                <tr>
+                  <td style="border:1px solid #000; text-align:center; height:25px"><input type="text" id="total-pkgs" style="text-align:center"></td>
+                  <td style="border:1px solid #000; text-align:center"><input type="text" id="total-units" style="text-align:center"></td>
+                  <td style="border:1px solid #000; text-align:center"><input type="text" id="total-net-weight" style="text-align:center"></td>
+                  <td style="border:1px solid #000; text-align:center"><input type="text" id="weight-unit-1" value="LB" style="text-align:center"></td>
+                  <td style="border:1px solid #000; text-align:center"><input type="text" id="total-gross-weight" style="text-align:center"></td>
+                  <td style="border:1px solid #000; text-align:center"><input type="text" id="weight-unit-2" value="LB" style="text-align:center"></td>
+                  <td style="border:1px solid #000; text-align:center"><input type="text" id="terms-of-sale" style="text-align:center"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="border:1px solid #000; background:#f5deb3; font-weight:bold; font-size:10px">Special Instructions</td>
+                  <td colspan="5" style="border:1px solid #000"><input type="text" id="special-instructions"></td>
+                </tr>
+              </table>
+            </td>
+            <td style="width:40%; padding:0; vertical-align:top">
+              <table class="summary-table">
+                <tr>
+                  <td class="summary-label">Subtotal</td>
+                  <td class="summary-value"><input type="text" id="subtotal" value="0.00"></td>
+                </tr>
+                <tr>
+                  <td class="summary-label">Insurance</td>
+                  <td class="summary-value"><input type="text" id="insurance" value="0.00"></td>
+                </tr>
+                <tr>
+                  <td class="summary-label">Freight</td>
+                  <td class="summary-value"><input type="text" id="freight" value="0.00"></td>
+                </tr>
+                <tr>
+                  <td class="summary-label">Packing</td>
+                  <td class="summary-value"><input type="text" id="packing" value="0.00"></td>
+                </tr>
+                <tr>
+                  <td class="summary-label">Handling</td>
+                  <td class="summary-value"><input type="text" id="handling" value="0.00"></td>
+                </tr>
+                <tr>
+                  <td class="summary-label">Other</td>
+                  <td class="summary-value"><input type="text" id="other-charges" value="0.00"></td>
+                </tr>
+                <tr>
+                  <td class="summary-label">Invoice Total</td>
+                  <td class="summary-value"><input type="text" id="invoice-total" value="0.00"></td>
+                </tr>
+                <tr>
+                  <td class="summary-label">Currency Code</td>
+                  <td class="summary-value"><input type="text" id="currency" value="USD"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Declaration Section -->
+        <table class="form-table" style="margin-top:-1px">
+          <tr>
+            <td style="width:60%; vertical-align:top">
+              <div class="section-header" style="background:#f5deb3; padding:4px; margin:-4px -6px 6px -6px;">Declaration Statement(s)</div>
+              <p class="declaration-text">
+                These items are controlled by the U.S. Government and authorized for export only to the country of ultimate destination for use by the ultimate consignee or end-user(s) herein identified. They may not be resold, transferred, or otherwise disposed of, to any other country or to any person other than the authorized ultimate consignee or end-user(s), either in their original form or after being incorporated into other items, without first obtaining approval from the U.S. government or as otherwise authorized by U.S. law and regulations.
+              </p>
+              <div style="margin-top:15px; border-bottom:1px solid #000; padding-bottom:5px;">
+                <strong>I declare that all the information contained in this invoice to be true and correct</strong>
+              </div>
+              <div style="margin-top:10px">
+                <div class="field-label">Originator or Name of Company Representative if the invoice is being completed on behalf of a company or individual</div>
+                <input type="text" id="originator" style="border-bottom:1px solid #000; margin-top:5px;">
+              </div>
+              <div style="margin-top:15px">
+                <div class="field-label">Signature / Title / Date</div>
+                <div class="signature-line"></div>
+              </div>
+            </td>
+            <td style="width:40%; vertical-align:bottom; text-align:right">
+              <input type="text" id="signature-date" style="width:120px; text-align:center; border-bottom:1px solid #000">
+            </td>
+          </tr>
+        </table>
+
+        <div class="rev-number">REV. 01.21.17-1.00</div>
+
+        <div class="form-actions" style="margin-top:20px; justify-content:flex-end; display:flex; gap:10px;">
+          <button type="button" class="btn btn-secondary" onclick="window.print()">Print</button>
+          <button type="button" class="btn btn-secondary">Save Draft</button>
+          <button type="submit" class="btn btn-primary">Generate Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Set today's date
+    const today = new Date();
+    const dateStr = today.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+    document.getElementById('ship-date').value = dateStr;
+    document.getElementById('signature-date').value = dateStr;
+
+    // Calculate totals
+    function calculateTotals() {
+      let subtotal = 0;
+      document.querySelectorAll('.total-input').forEach(input => {
+        subtotal += parseFloat(input.value) || 0;
+      });
+
+      const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+      const freight = parseFloat(document.getElementById('freight').value) || 0;
+      const packing = parseFloat(document.getElementById('packing').value) || 0;
+      const handling = parseFloat(document.getElementById('handling').value) || 0;
+      const other = parseFloat(document.getElementById('other-charges').value) || 0;
+
+      document.getElementById('subtotal').value = subtotal.toFixed(2);
+      document.getElementById('invoice-total').value = (subtotal + insurance + freight + packing + handling + other).toFixed(2);
+    }
+
+    // Calculate line totals
+    document.querySelectorAll('#items-body tr').forEach(row => {
+      const unitsInput = row.querySelector('.units-input');
+      const priceInput = row.querySelector('.unit-price-input');
+      const totalInput = row.querySelector('.total-input');
+
+      if (unitsInput && priceInput && totalInput) {
+        [unitsInput, priceInput].forEach(input => {
+          input.addEventListener('input', () => {
+            const units = parseFloat(unitsInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 0;
+            totalInput.value = (units * price).toFixed(2);
+            calculateTotals();
+          });
+        });
+      }
+    });
+
+    // Summary field change handlers
+    ['insurance', 'freight', 'packing', 'handling', 'other-charges'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateTotals);
+    });
+
+    // Form submission
+    document.getElementById('commercial-invoice-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Invoice generated! (This is a mockup)');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockups</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/">Mockups</a></h1>
+  </header>
+
+  <div class="container">
+    <nav class="nav-tree">
+      <h2>Projects</h2>
+      <ul>
+        <li>
+          <div class="folder open">Forms</div>
+          <ul class="nested show">
+            <li>
+              <div class="folder open">International</div>
+              <ul class="nested show">
+                <li><a href="/mockups/forms/international/commercial-invoice" class="mockup-link">Commercial Invoice</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    document.querySelectorAll('.folder').forEach(folder => {
+      folder.addEventListener('click', function() {
+        this.classList.toggle('open');
+        const nested = this.nextElementSibling;
+        if (nested && nested.classList.contains('nested')) {
+          nested.classList.toggle('show');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
