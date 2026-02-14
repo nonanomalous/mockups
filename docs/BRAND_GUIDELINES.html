@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NLS Digital — Brand Guidelines v2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ════════════════════════════════════════════════════════
+       NLS DIGITAL — DESIGN TOKENS
+       ════════════════════════════════════════════════════════ */
+    :root {
+      /* ── Core Brand ── */
+      --nls-cyan:           #0ACDCF;
+      --nls-cyan-bright:    #3EDBDC;
+      --nls-cyan-muted:     #0A9B9D;
+      --nls-cyan-subtle:    #0E4F50;
+
+      /* ── Neutrals ── */
+      --nls-midnight:       #0B1215;
+      --nls-charcoal:       #141C20;
+      --nls-slate:          #1E2A30;
+      --nls-graphite:       #2C3A42;
+      --nls-ash:            #5A6872;
+      --nls-mist:           #94A3AD;
+      --nls-cloud:          #C8D2D8;
+      --nls-snow:           #EDF1F3;
+      --nls-white:          #F8FAFB;
+
+      /* ── Status & Feedback ── */
+      --nls-green:          #34D399;
+      --nls-green-bg:       #062E20;
+      --nls-amber:          #FBBF24;
+      --nls-amber-bg:       #2E2506;
+      --nls-red:            #F87171;
+      --nls-red-bg:         #2E0A0A;
+      --nls-blue:           #60A5FA;
+      --nls-blue-bg:        #0A1A2E;
+
+      /* ── Shipment Lifecycle ── */
+      --nls-status-quoted:    #60A5FA;
+      --nls-status-booked:    #A78BFA;
+      --nls-status-packed:    #0ACDCF;
+      --nls-status-transit:   #FBBF24;
+      --nls-status-delivered: #34D399;
+      --nls-status-exception: #F87171;
+
+      /* ── Alpha & Effects ── */
+      --nls-overlay:        rgba(11, 18, 21, 0.72);
+      --nls-glass:          rgba(11, 18, 21, 0.55);
+      --nls-glass-border:   rgba(10, 205, 207, 0.12);
+      --nls-cyan-glow:      rgba(10, 205, 207, 0.15);
+      --nls-shadow-sm:      0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+      --nls-shadow-md:      0 4px 12px rgba(0,0,0,0.35), 0 2px 4px rgba(0,0,0,0.2);
+      --nls-shadow-lg:      0 12px 40px rgba(0,0,0,0.45), 0 4px 12px rgba(0,0,0,0.25);
+      --nls-shadow-cyan:    0 0 20px rgba(10,205,207,0.15), 0 0 60px rgba(10,205,207,0.05);
+
+      /* ── Semantic Aliases ── */
+      --bg-primary:     var(--nls-midnight);
+      --bg-surface:     var(--nls-charcoal);
+      --bg-elevated:    var(--nls-slate);
+      --border-default: var(--nls-graphite);
+      --text-primary:   var(--nls-snow);
+      --text-secondary: var(--nls-mist);
+      --text-tertiary:  var(--nls-ash);
+
+      /* ── Typography ── */
+      --font-display:  'Plus Jakarta Sans', 'Futura', 'Trebuchet MS', sans-serif;
+      --font-body:     'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+      --font-mono:     'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+
+      /* ── Spacing (4px base) ── */
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+      --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
+      --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
+      --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+
+      /* ── Radius ── */
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px;
+      --radius-xl: 16px; --radius-2xl: 24px; --radius-full: 9999px;
+
+      /* ── Motion ── */
+      --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+      --ease-enter:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-exit:     cubic-bezier(0.4, 0, 0.7, 0.2);
+      --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+      --dur-fast: 100ms; --dur-normal: 200ms; --dur-moderate: 300ms;
+      --dur-slow: 400ms; --dur-slower: 600ms;
+
+      /* ── Gradients ── */
+      --nls-gradient-brand: linear-gradient(135deg, #0A9B9D 0%, #0ACDCF 40%, #3EDBDC 100%);
+      --nls-gradient-mesh: radial-gradient(ellipse at 20% 50%, rgba(10,205,207,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(96,165,250,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(167,139,250,0.04) 0%, transparent 50%);
+    }
+
+    /* ════════════════════════════════════════════════════════
+       RESET & BASE
+       ════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      background: var(--bg-primary);
+      background-image: var(--nls-gradient-mesh);
+      background-attachment: fixed;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       DOCUMENT LAYOUT
+       ════════════════════════════════════════════════════════ */
+    .doc-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6);
+    }
+
+    @media (min-width: 768px) {
+      .doc-container { padding: var(--space-16) var(--space-12); }
+    }
+
+    /* ── Sidebar Nav ── */
+    .doc-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-default);
+      padding: var(--space-8) var(--space-5);
+      z-index: 100;
+      display: none;
+    }
+
+    @media (min-width: 1280px) {
+      .doc-nav { display: block; }
+      .doc-container { margin-left: 260px; max-width: 880px; padding-left: var(--space-16); }
+    }
+
+    .doc-nav__brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.125rem;
+      color: var(--nls-cyan);
+      letter-spacing: -0.015em;
+      margin-bottom: var(--space-8);
+    }
+    .doc-nav__brand span { color: var(--text-tertiary); font-weight: 400; }
+
+    .doc-nav__section {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-top: var(--space-6);
+      margin-bottom: var(--space-2);
+    }
+
+    .doc-nav a {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1px;
+      transition: color var(--dur-fast) var(--ease-standard), background var(--dur-fast) var(--ease-standard);
+    }
+    .doc-nav a:hover { color: var(--nls-cyan); background: rgba(10,205,207,0.06); }
+
+    /* ════════════════════════════════════════════════════════
+       TYPOGRAPHY — DOCUMENT STYLES
+       ════════════════════════════════════════════════════════ */
+    h1, h2, h3, h4, h5 {
+      font-family: var(--font-display);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw + 0.5rem, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-4);
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-top: var(--space-20);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border-default);
+    }
+    h2 .section-num {
+      color: var(--nls-cyan);
+      font-weight: 800;
+      margin-right: 0.3em;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: var(--space-12);
+      margin-bottom: var(--space-4);
+    }
+    h3 .sub-num { color: var(--nls-cyan-muted); margin-right: 0.25em; }
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: var(--space-8);
+      margin-bottom: var(--space-3);
+      color: var(--nls-cloud);
+    }
+
+    p {
+      margin-bottom: var(--space-4);
+      max-width: 72ch;
+    }
+
+    strong { color: var(--text-primary); font-weight: 600; }
+
+    a { color: var(--nls-cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ── Horizontal Rule ── */
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--nls-graphite) 20%, var(--nls-cyan-muted) 50%, var(--nls-graphite) 80%, transparent);
+      margin: var(--space-16) 0;
+    }
+
+    /* ── Lead Paragraph ── */
+    .lead {
+      font-size: 1.125rem;
+      color: var(--nls-cloud);
+      line-height: 1.7;
+      max-width: 60ch;
+    }
+
+    .subtitle {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-3);
+    }
+
+    /* ════════════════════════════════════════════════════════
+       CODE BLOCKS
+       ════════════════════════════════════════════════════════ */
+    pre {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      line-height: 1.7;
+      background: var(--nls-midnight);
+      border: 1px solid var(--nls-slate);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      overflow-x: auto;
+      margin-bottom: var(--space-6);
+      tab-size: 2;
+      position: relative;
+    }
+    pre::before {
+      content: attr(data-lang);
+      position: absolute;
+      top: var(--space-2);
+      right: var(--space-3);
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      opacity: 0.6;
+    }
+
+    code {
+      font-family: var(--font-mono);
+    }
+
+    :not(pre) > code {
+      font-size: 0.85em;
+      color: var(--nls-cyan-bright);
+      background: var(--nls-slate);
+      padding: 0.1em 0.4em;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Syntax colors */
+    .hl-kw  { color: #C792EA; }
+    .hl-str { color: #C3E88D; }
+    .hl-num { color: #F78C6C; }
+    .hl-fn  { color: #82AAFF; }
+    .hl-cm  { color: #546E7A; font-style: italic; }
+    .hl-pr  { color: var(--nls-cyan-bright); }
+    .hl-pn  { color: var(--nls-mist); }
+    .hl-bl  { color: #FF5370; }
+    .hl-tag { color: #F07178; }
+    .hl-at  { color: #FFCB6B; }
+
+    /* ════════════════════════════════════════════════════════
+       TABLES
+       ════════════════════════════════════════════════════════ */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.875rem;
+      margin-bottom: var(--space-8);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    thead th {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      background: var(--bg-surface);
+      padding: var(--space-3) var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    tbody td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--nls-slate);
+      color: var(--text-secondary);
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: rgba(255,255,255,0.02); }
+    td code { font-size: 0.8em; }
+
+    /* ════════════════════════════════════════════════════════
+       COLOR SWATCHES
+       ════════════════════════════════════════════════════════ */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+
+    .swatch {
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform var(--dur-normal) var(--ease-standard), box-shadow var(--dur-normal) var(--ease-standard);
+    }
+    .swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--nls-shadow-md);
+    }
+
+    .swatch__color {
+      height: 80px;
+      position: relative;
+    }
+    .swatch__color::after {
+      content: attr(data-hex);
+      position: absolute;
+      bottom: var(--space-2);
+      left: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .swatch__meta {
+      padding: var(--space-3);
+      background: var(--bg-surface);
+    }
+    .swatch__name {
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .swatch__var {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       COMPONENT DEMOS
+       ════════════════════════════════════════════════════════ */
+    .demo-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+      position: relative;
+    }
+    .demo-box::before {
+      content: attr(data-label);
+      position: absolute;
+      top: calc(-0.625rem);
+      left: var(--space-5);
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--nls-cyan-muted);
+      background: var(--bg-surface);
+      padding: 0 var(--space-2);
+    }
+
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    /* ── Buttons ── */
+    .nls-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.875rem;
+      line-height: 1;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 80ms ease;
+    }
+    .nls-btn:active { transform: scale(0.97); }
+    .nls-btn:focus-visible { outline: 2px solid var(--nls-cyan); outline-offset: 2px; box-shadow: 0 0 0 4px var(--nls-cyan-glow); }
+
+    .nls-btn--primary { background: var(--nls-cyan); color: var(--nls-midnight); border-color: var(--nls-cyan); }
+    .nls-btn--primary:hover { background: var(--nls-cyan-bright); border-color: var(--nls-cyan-bright); box-shadow: var(--nls-shadow-cyan); }
+
+    .nls-btn--secondary { background: transparent; color: var(--nls-cyan); border-color: var(--nls-cyan-muted); }
+    .nls-btn--secondary:hover { background: var(--nls-cyan-subtle); border-color: var(--nls-cyan); }
+
+    .nls-btn--ghost { background: transparent; color: var(--text-secondary); border-color: transparent; }
+    .nls-btn--ghost:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+
+    .nls-btn--danger { background: transparent; color: var(--nls-red); border-color: rgba(248,113,113,0.3); }
+    .nls-btn--danger:hover { background: var(--nls-red-bg); border-color: var(--nls-red); }
+
+    .nls-btn--sm { font-size: 0.75rem; padding: 0.5rem 0.75rem; }
+    .nls-btn--lg { font-size: 1rem; padding: 1rem 2rem; border-radius: var(--radius-lg); }
+
+    /* ── Cards ── */
+    .nls-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    }
+    .nls-card--interactive { cursor: pointer; }
+    .nls-card--interactive:hover { border-color: var(--nls-cyan-muted); box-shadow: var(--nls-shadow-md), var(--nls-shadow-cyan); transform: translateY(-2px); }
+
+    .nls-card--glass {
+      background: var(--nls-glass);
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      border: 1px solid var(--nls-glass-border);
+    }
+
+    .nls-card--status { position: relative; overflow: hidden; }
+    .nls-card--status::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--status-color, var(--nls-cyan)); }
+
+    /* ── Inputs ── */
+    .nls-input {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--nls-slate);
+      border: 1px solid var(--nls-graphite);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+    }
+    .nls-input::placeholder { color: var(--text-tertiary); }
+    .nls-input:hover { border-color: var(--nls-ash); }
+    .nls-input:focus { outline: none; border-color: var(--nls-cyan); box-shadow: 0 0 0 3px var(--nls-cyan-glow); background: var(--nls-charcoal); }
+
+    .nls-label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-2);
+    }
+
+    /* ── Badges ── */
+    .nls-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      line-height: 1.4;
+    }
+    .nls-badge--quoted    { background: var(--nls-blue-bg);  color: var(--nls-blue); }
+    .nls-badge--booked    { background: rgba(167,139,250,0.1); color: #A78BFA; }
+    .nls-badge--packed    { background: rgba(10,205,207,0.1); color: var(--nls-cyan); }
+    .nls-badge--transit   { background: var(--nls-amber-bg); color: var(--nls-amber); }
+    .nls-badge--delivered { background: var(--nls-green-bg); color: var(--nls-green); }
+    .nls-badge--error     { background: var(--nls-red-bg);   color: var(--nls-red); }
+
+    .nls-badge--pulse::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: badge-pulse 2s ease-in-out infinite;
+    }
+
+    /* ── Status Tracker ── */
+    .nls-tracker { display: flex; align-items: flex-start; padding: var(--space-6) 0; overflow-x: auto; }
+    .nls-tracker__step { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; min-width: 100px; }
+    .nls-tracker__step:not(:last-child)::after { content: ''; position: absolute; top: 16px; left: calc(50% + 20px); right: calc(-50% + 20px); height: 2px; background: var(--nls-graphite); transition: background 400ms ease; }
+    .nls-tracker__step--complete:not(:last-child)::after { background: var(--nls-cyan); }
+    .nls-tracker__step--active:not(:last-child)::after { background: linear-gradient(90deg, var(--nls-cyan), var(--nls-graphite)); background-size: 200% 100%; animation: pulse-gradient 2s ease-in-out infinite; }
+
+    .nls-tracker__node {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;
+      background: var(--nls-slate); border: 2px solid var(--nls-graphite);
+      color: var(--text-tertiary); position: relative; z-index: 1;
+      transition: all 300ms ease;
+    }
+    .nls-tracker__step--complete .nls-tracker__node { background: var(--nls-cyan); border-color: var(--nls-cyan); color: var(--nls-midnight); }
+    .nls-tracker__step--active .nls-tracker__node { border-color: var(--nls-cyan); color: var(--nls-cyan); box-shadow: 0 0 0 4px var(--nls-cyan-glow), var(--nls-shadow-cyan); animation: glow-pulse 2s ease-in-out infinite; }
+
+    .nls-tracker__label { margin-top: var(--space-3); font-size: 0.75rem; font-weight: 500; color: var(--text-tertiary); text-align: center; transition: color 300ms ease; }
+    .nls-tracker__step--complete .nls-tracker__label,
+    .nls-tracker__step--active .nls-tracker__label { color: var(--text-primary); }
+    .nls-tracker__time { margin-top: 4px; font-family: var(--font-mono); font-size: 0.625rem; color: var(--text-tertiary); }
+
+    /* ── Toast ── */
+    .nls-toast {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      min-width: 320px; max-width: 480px;
+      padding: var(--space-4) var(--space-5);
+      background: var(--nls-charcoal); border: 1px solid var(--nls-graphite);
+      border-radius: var(--radius-lg); box-shadow: var(--nls-shadow-lg);
+      animation: toast-in 300ms var(--ease-enter);
+    }
+    .nls-toast--success { border-left: 3px solid var(--nls-green); }
+    .nls-toast--error   { border-left: 3px solid var(--nls-red); }
+    .nls-toast--warning { border-left: 3px solid var(--nls-amber); }
+    .nls-toast--info    { border-left: 3px solid var(--nls-blue); }
+    .nls-toast__title { font-family: var(--font-display); font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
+    .nls-toast__body { font-size: 0.875rem; color: var(--text-secondary); margin-top: 4px; }
+
+    /* ── Skeleton ── */
+    .nls-skeleton {
+      background: linear-gradient(90deg, var(--nls-slate) 25%, var(--nls-graphite) 50%, var(--nls-slate) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease infinite;
+      border-radius: var(--radius-sm);
+    }
+    .nls-skeleton--text { height: 1em; margin-bottom: var(--space-2); }
+    .nls-skeleton--heading { height: 1.5em; width: 60%; margin-bottom: var(--space-4); }
+
+    /* ── Glow Border ── */
+    .nls-glow { position: relative; }
+    .nls-glow::before {
+      content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+      background: linear-gradient(135deg, var(--nls-cyan) 0%, transparent 40%, transparent 60%, var(--nls-cyan-muted) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       KEYFRAME ANIMATIONS
+       ════════════════════════════════════════════════════════ */
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 0 4px var(--nls-cyan-glow), 0 0 20px rgba(10,205,207,0.1); }
+      50%      { box-shadow: 0 0 0 8px rgba(10,205,207,0.05), 0 0 40px rgba(10,205,207,0.15); }
+    }
+    @keyframes badge-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(0.75); }
+    }
+    @keyframes pulse-gradient {
+      0%   { background-position: 100% 50%; }
+      50%  { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(16px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes scale-in {
+      from { opacity: 0; transform: scale(0.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes slide-right {
+      from { transform: translateX(100%); }
+      to   { transform: translateX(0); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @property --glow-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+    @keyframes glow-rotate { to { --glow-angle: 360deg; } }
+
+    /* ── Stagger ── */
+    .stagger > * { animation: fade-in-up var(--dur-moderate) var(--ease-enter) both; }
+    .stagger > *:nth-child(1) { animation-delay: 0ms; }
+    .stagger > *:nth-child(2) { animation-delay: 60ms; }
+    .stagger > *:nth-child(3) { animation-delay: 120ms; }
+    .stagger > *:nth-child(4) { animation-delay: 180ms; }
+    .stagger > *:nth-child(5) { animation-delay: 240ms; }
+    .stagger > *:nth-child(6) { animation-delay: 300ms; }
+
+    /* ── Scroll Reveal ── */
+    [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-slower) var(--ease-enter), transform var(--dur-slower) var(--ease-enter); }
+    [data-reveal="visible"] { opacity: 1; transform: translateY(0); }
+
+    /* ── Reduced Motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       UTILITY CLASSES
+       ════════════════════════════════════════════════════════ */
+    .font-display { font-family: var(--font-display); }
+    .font-body    { font-family: var(--font-body); }
+    .font-mono    { font-family: var(--font-mono); }
+    .text-cyan    { color: var(--nls-cyan); }
+    .text-muted   { color: var(--text-tertiary); }
+    .text-primary { color: var(--text-primary); }
+    .mt-0 { margin-top: 0; }
+    .mb-0 { margin-bottom: 0; }
+    .mb-2 { margin-bottom: var(--space-2); }
+    .mb-4 { margin-bottom: var(--space-4); }
+    .mb-8 { margin-bottom: var(--space-8); }
+    .flex { display: flex; }
+    .gap-3 { gap: var(--space-3); }
+    .gap-4 { gap: var(--space-4); }
+    .items-center { align-items: center; }
+
+    /* ════════════════════════════════════════════════════════
+       PRINT
+       ════════════════════════════════════════════════════════ */
+    @media print {
+      body { background: #fff; color: #1a1a1a; }
+      .doc-nav { display: none; }
+      .doc-container { margin: 0; max-width: 100%; }
+      pre { border-color: #ccc; }
+      .swatch__color { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SIDEBAR NAVIGATION
+     ═══════════════════════════════════════════════════════════ -->
+<nav class="doc-nav" aria-label="Document sections">
+  <div class="doc-nav__brand">NLS<span>digital</span></div>
+
+  <div class="doc-nav__section">Foundation</div>
+  <a href="#overview">Overview</a>
+  <a href="#color-system">Color System</a>
+  <a href="#typography">Typography</a>
+  <a href="#spacing">Spacing &amp; Layout</a>
+
+  <div class="doc-nav__section">Elements</div>
+  <a href="#iconography">Iconography</a>
+  <a href="#components">Components &amp; Widgets</a>
+  <a href="#code-api">Code &amp; API Display</a>
+
+  <div class="doc-nav__section">Motion</div>
+  <a href="#motion">Motion &amp; Animation</a>
+  <a href="#surfaces">Surfaces &amp; Effects</a>
+
+  <div class="doc-nav__section">Standards</div>
+  <a href="#accessibility">Accessibility</a>
+  <a href="#application">Brand Application</a>
+  <a href="#governance">Governance</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════ -->
+<main class="doc-container">
+
+  <!-- ─────────────── COVER ─────────────── -->
+  <div style="margin-bottom:var(--space-24);">
+    <p class="subtitle">Division of Annex Brands, Inc. · v2.0 · February 2026</p>
+    <h1>NLS Digital<br><span style="color:var(--nls-cyan);">Brand Guidelines</span></h1>
+    <p class="lead">
+      The complete visual identity and technical implementation standards for the digital platform division of Annex Brands.
+      Every color, typeface, spacing value, animation curve, and component pattern — defined as executable specifications.
+    </p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="overview"><span class="section-num">01</span> Overview</h2>
+
+  <p>
+    NLS Digital powers the technology layer beneath Annex Brands' seven franchise brands and 850+ retail locations — from instant quoting engines and shipment tracking to API integrations and white-label solutions.
+    These guidelines exist as <strong>executable specifications</strong>. The brand is the code.
+  </p>
+
+  <h3><span class="sub-num">1.1</span> Guiding Principles</h3>
+  <table>
+    <thead><tr><th>Principle</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Precision over decoration</strong></td><td>Every pixel serves a purpose. No ornamental elements without function.</td></tr>
+      <tr><td><strong>Engineered trust</strong></td><td>Reliability through consistency, not flash.</td></tr>
+      <tr><td><strong>Network-native</strong></td><td>Scales across 7 brands, 850+ locations, unlimited API consumers.</td></tr>
+      <tr><td><strong>Resilient by default</strong></td><td>Every specification includes a fallback. No single point of visual failure.</td></tr>
+      <tr><td><strong>Dark-first, light-ready</strong></td><td>Primary expression is dark mode. Light mode is a supported variant.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">1.2</span> Keywords</h3>
+  <p><code>digital-logistics</code> · <code>brand-system</code> · <code>design-tokens</code> · <code>css-variables</code> · <code>typography</code> · <code>iconography</code> · <code>motion-design</code> · <code>component-library</code> · <code>accessibility</code> · <code>dark-mode</code> · <code>responsive</code> · <code>api-first</code></p>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="color-system"><span class="section-num">02</span> Color System</h2>
+
+  <p>
+    NLS Digital claims <strong>teal-cyan</strong> as its primary territory — unoccupied by any existing Annex brand
+    (PostalAnnex = red, Pak&nbsp;Mail = red/gold, AIM = blue, Navis = green, HWC = brown, Parcel&nbsp;Plus = blue, Sunshine = warm).
+    Cyan bridges Navis's green heritage with the trust associations of blue.
+  </p>
+
+  <h3><span class="sub-num">2.1</span> Primary Colors</h3>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch__color" style="background:#0ACDCF" data-hex="#0ACDCF"></div><div class="swatch__meta"><div class="swatch__name">Cyan</div><div class="swatch__var">--nls-cyan</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#3EDBDC" data-hex="#3EDBDC"></div><div class="swatch__meta"><div class="swatch__name">Cyan Bright</div><div class="swatch__var">--nls-cyan-bright</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#0A9B9D" data-hex="#0A9B9D"></div><div class="swatch__meta"><div class="swatch__name">Cyan Muted</div><div class="swatch__var">--nls-cyan-muted</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#0E4F50" data-hex="#0E4F50"></div><div class="swatch__meta"><div class="swatch__name">Cyan Subtle</div><div class="swatch__var">--nls-cyan-subtle</div></div></div>
+  </div>
+
+  <h3><span class="sub-num">2.2</span> Neutrals</h3>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch__color" style="background:#0B1215" data-hex="#0B1215"></div><div class="swatch__meta"><div class="swatch__name">Midnight</div><div class="swatch__var">--nls-midnight</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#141C20" data-hex="#141C20"></div><div class="swatch__meta"><div class="swatch__name">Charcoal</div><div class="swatch__var">--nls-charcoal</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#1E2A30" data-hex="#1E2A30"></div><div class="swatch__meta"><div class="swatch__name">Slate</div><div class="swatch__var">--nls-slate</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#2C3A42" data-hex="#2C3A42"></div><div class="swatch__meta"><div class="swatch__name">Graphite</div><div class="swatch__var">--nls-graphite</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#5A6872" data-hex="#5A6872"></div><div class="swatch__meta"><div class="swatch__name">Ash</div><div class="swatch__var">--nls-ash</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#94A3AD" data-hex="#94A3AD"></div><div class="swatch__meta"><div class="swatch__name">Mist</div><div class="swatch__var">--nls-mist</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#C8D2D8" data-hex="#C8D2D8"></div><div class="swatch__meta"><div class="swatch__name">Cloud</div><div class="swatch__var">--nls-cloud</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#EDF1F3" data-hex="#EDF1F3"></div><div class="swatch__meta"><div class="swatch__name">Snow</div><div class="swatch__var">--nls-snow</div></div></div>
+  </div>
+
+  <h3><span class="sub-num">2.3</span> Status &amp; Feedback</h3>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch__color" style="background:#34D399" data-hex="#34D399"></div><div class="swatch__meta"><div class="swatch__name">Green — Success</div><div class="swatch__var">--nls-green</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#FBBF24" data-hex="#FBBF24"></div><div class="swatch__meta"><div class="swatch__name">Amber — Warning</div><div class="swatch__var">--nls-amber</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#F87171" data-hex="#F87171"></div><div class="swatch__meta"><div class="swatch__name">Red — Error</div><div class="swatch__var">--nls-red</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#60A5FA" data-hex="#60A5FA"></div><div class="swatch__meta"><div class="swatch__name">Blue — Info</div><div class="swatch__var">--nls-blue</div></div></div>
+  </div>
+
+  <h3><span class="sub-num">2.4</span> Shipment Lifecycle Palette</h3>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch__color" style="background:#60A5FA" data-hex="#60A5FA"></div><div class="swatch__meta"><div class="swatch__name">Quoted</div><div class="swatch__var">--nls-status-quoted</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#A78BFA" data-hex="#A78BFA"></div><div class="swatch__meta"><div class="swatch__name">Booked</div><div class="swatch__var">--nls-status-booked</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#0ACDCF" data-hex="#0ACDCF"></div><div class="swatch__meta"><div class="swatch__name">Packed</div><div class="swatch__var">--nls-status-packed</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#FBBF24" data-hex="#FBBF24"></div><div class="swatch__meta"><div class="swatch__name">In Transit</div><div class="swatch__var">--nls-status-transit</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#34D399" data-hex="#34D399"></div><div class="swatch__meta"><div class="swatch__name">Delivered</div><div class="swatch__var">--nls-status-delivered</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#F87171" data-hex="#F87171"></div><div class="swatch__meta"><div class="swatch__name">Exception</div><div class="swatch__var">--nls-status-exception</div></div></div>
+  </div>
+
+  <h3><span class="sub-num">2.5</span> Dark / Light Mode</h3>
+  <p>Dark mode is the default expression. Light mode uses semantic aliases that remap to lighter values. The system detects <code>prefers-color-scheme</code> automatically but can be overridden with <code>data-theme="light"</code> on the root element.</p>
+  <pre data-lang="CSS"><span class="hl-cm">/* Semantic aliases — remap per theme */</span>
+<span class="hl-pn">[</span><span class="hl-at">data-theme</span><span class="hl-pn">=</span><span class="hl-str">"light"</span><span class="hl-pn">]</span> <span class="hl-pn">{</span>
+  <span class="hl-pr">--bg-primary</span><span class="hl-pn">:</span>     <span class="hl-fn">var</span>(<span class="hl-pr">--nls-light-bg</span>);       <span class="hl-cm">/* #F4F6F8 */</span>
+  <span class="hl-pr">--bg-surface</span><span class="hl-pn">:</span>     <span class="hl-fn">var</span>(<span class="hl-pr">--nls-light-surface</span>);  <span class="hl-cm">/* #FFFFFF */</span>
+  <span class="hl-pr">--border-default</span><span class="hl-pn">:</span> <span class="hl-fn">var</span>(<span class="hl-pr">--nls-light-border</span>);   <span class="hl-cm">/* #DDE3E8 */</span>
+  <span class="hl-pr">--text-primary</span><span class="hl-pn">:</span>   <span class="hl-fn">var</span>(<span class="hl-pr">--nls-light-text</span>);     <span class="hl-cm">/* #1A2530 */</span>
+  <span class="hl-pr">--text-secondary</span><span class="hl-pn">:</span> <span class="hl-fn">var</span>(<span class="hl-pr">--nls-light-muted</span>);    <span class="hl-cm">/* #5A6872 */</span>
+<span class="hl-pn">}</span>
+
+<span class="hl-kw">@media</span> (<span class="hl-at">prefers-color-scheme</span>: light) <span class="hl-pn">{</span>
+  <span class="hl-pn">:root:not([</span><span class="hl-at">data-theme</span><span class="hl-pn">])</span> <span class="hl-pn">{</span> <span class="hl-cm">/* same overrides */</span> <span class="hl-pn">}</span>
+<span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">2.6</span> Gradients</h3>
+  <div class="demo-box" data-label="Brand Gradient">
+    <div style="height:64px;border-radius:var(--radius-lg);background:var(--nls-gradient-brand);"></div>
+    <p class="font-mono text-muted" style="font-size:0.75rem;margin-top:var(--space-3);margin-bottom:0;">--nls-gradient-brand · linear-gradient(135deg, #0A9B9D 0%, #0ACDCF 40%, #3EDBDC 100%)</p>
+  </div>
+  <div class="demo-box" data-label="Status Gradient">
+    <div style="height:16px;border-radius:var(--radius-full);background:linear-gradient(90deg, var(--nls-status-quoted), var(--nls-status-booked), var(--nls-status-packed), var(--nls-status-transit), var(--nls-status-delivered));"></div>
+    <p class="font-mono text-muted" style="font-size:0.75rem;margin-top:var(--space-3);margin-bottom:0;">--nls-gradient-status · Quoted → Booked → Packed → Transit → Delivered</p>
+  </div>
+
+  <h3><span class="sub-num">2.7</span> Usage Rules</h3>
+  <table>
+    <thead><tr><th>Do</th><th>Don't</th></tr></thead>
+    <tbody>
+      <tr><td>Use <code>--nls-cyan</code> exclusively for primary interactive elements</td><td>Use cyan for large background fills</td></tr>
+      <tr><td>Apply status colors only for their semantic purpose</td><td>Mix status colors decoratively</td></tr>
+      <tr><td>Maintain 4.5:1 contrast (WCAG AA) for body text</td><td>Layer multiple alpha/glass effects without testing contrast</td></tr>
+      <tr><td>Use lifecycle palette consistently across all tracking UIs</td><td>Apply parent brand reds — NLS red is distinct</td></tr>
+    </tbody>
+  </table>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="typography"><span class="section-num">03</span> Typography</h2>
+
+  <p>
+    A three-tier system: a <strong>display face</strong> for impact, a <strong>body face</strong> for readability, and a <strong>monospace face</strong> for technical content.
+  </p>
+
+  <h3><span class="sub-num">3.1</span> Font Stack</h3>
+  <table>
+    <thead><tr><th>Role</th><th>Family</th><th>Fallback Chain</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Display / Headings</strong></td>
+        <td style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Plus Jakarta Sans</td>
+        <td><code>Futura → Trebuchet MS → sans-serif</code></td>
+        <td>Geometric sans with warmth. Futura fallback connects to Annex heritage.</td>
+      </tr>
+      <tr>
+        <td><strong>Body / UI</strong></td>
+        <td style="font-family:'Inter',sans-serif;">Inter</td>
+        <td><code>Helvetica Neue → Arial → sans-serif</code></td>
+        <td>Purpose-built for screens. Tall x-height, unambiguous at 12–16px.</td>
+      </tr>
+      <tr>
+        <td><strong>Code / Data</strong></td>
+        <td style="font-family:'JetBrains Mono',monospace;">JetBrains Mono</td>
+        <td><code>Fira Code → SF Mono → Consolas → monospace</code></td>
+        <td>Distinct 1/l/I and 0/O glyphs. Programming ligatures. API-ready.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">3.2</span> Type Scale (1.250 Major Third)</h3>
+  <div class="demo-box" data-label="Live Type Scale">
+    <p style="font-family:var(--font-display);font-size:3.75rem;font-weight:800;line-height:1;letter-spacing:-0.03em;color:var(--text-primary);margin-bottom:var(--space-4);">Display 60px</p>
+    <p style="font-family:var(--font-display);font-size:3rem;font-weight:700;line-height:1.15;letter-spacing:-0.015em;color:var(--text-primary);margin-bottom:var(--space-4);">H1 Heading 48px</p>
+    <p style="font-family:var(--font-display);font-size:1.875rem;font-weight:600;line-height:1.15;letter-spacing:-0.015em;color:var(--text-primary);margin-bottom:var(--space-4);">H2 Section Title 30px</p>
+    <p style="font-family:var(--font-display);font-size:1.5rem;font-weight:600;line-height:1.3;color:var(--text-primary);margin-bottom:var(--space-4);">H3 Subsection 24px</p>
+    <p style="font-family:var(--font-display);font-size:1.25rem;font-weight:500;line-height:1.3;color:var(--text-primary);margin-bottom:var(--space-4);">H4 Card Title 20px</p>
+    <p style="font-family:var(--font-body);font-size:1rem;line-height:1.6;color:var(--text-secondary);margin-bottom:var(--space-3);">Body text at 16px — the primary reading size for paragraphs, descriptions, and form content. Inter provides excellent legibility at this size across all screen densities.</p>
+    <p style="font-family:var(--font-body);font-size:0.875rem;line-height:1.5;color:var(--text-secondary);margin-bottom:var(--space-3);">Secondary body at 14px — form labels, table cells, and supplementary copy.</p>
+    <p style="font-family:var(--font-body);font-size:0.75rem;line-height:1.5;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-3);">CAPTION · 12px · UPPER · TRACKED</p>
+    <p style="font-family:var(--font-mono);font-size:0.875rem;line-height:1.625;color:var(--nls-cyan-bright);margin-bottom:0;"><span style="color:var(--nls-mist);">const</span> trackingId = <span style="color:#C3E88D;">"NLS-2026-00847"</span>;</p>
+  </div>
+
+  <h3><span class="sub-num">3.3</span> Token Definitions</h3>
+  <pre data-lang="CSS"><span class="hl-pn">:root {</span>
+  <span class="hl-cm">/* ── Type Scale ── */</span>
+  <span class="hl-pr">--text-2xs</span>:  <span class="hl-num">0.625rem</span>;   <span class="hl-cm">/* 10px — Micro labels      */</span>
+  <span class="hl-pr">--text-xs</span>:   <span class="hl-num">0.75rem</span>;    <span class="hl-cm">/* 12px — Tables, metadata  */</span>
+  <span class="hl-pr">--text-sm</span>:   <span class="hl-num">0.875rem</span>;   <span class="hl-cm">/* 14px — Secondary body    */</span>
+  <span class="hl-pr">--text-base</span>: <span class="hl-num">1rem</span>;       <span class="hl-cm">/* 16px — Primary body      */</span>
+  <span class="hl-pr">--text-md</span>:   <span class="hl-num">1.125rem</span>;   <span class="hl-cm">/* 18px — Lead paragraphs   */</span>
+  <span class="hl-pr">--text-lg</span>:   <span class="hl-num">1.25rem</span>;    <span class="hl-cm">/* 20px — H4               */</span>
+  <span class="hl-pr">--text-xl</span>:   <span class="hl-num">1.5rem</span>;     <span class="hl-cm">/* 24px — H3               */</span>
+  <span class="hl-pr">--text-2xl</span>:  <span class="hl-num">1.875rem</span>;   <span class="hl-cm">/* 30px — H2               */</span>
+  <span class="hl-pr">--text-3xl</span>:  <span class="hl-num">2.25rem</span>;    <span class="hl-cm">/* 36px — Hero subtitle    */</span>
+  <span class="hl-pr">--text-4xl</span>:  <span class="hl-num">3rem</span>;       <span class="hl-cm">/* 48px — H1               */</span>
+  <span class="hl-pr">--text-5xl</span>:  <span class="hl-num">3.75rem</span>;    <span class="hl-cm">/* 60px — Display          */</span>
+
+  <span class="hl-cm">/* ── Line Height ── */</span>
+  <span class="hl-pr">--leading-tight</span>:   <span class="hl-num">1.15</span>;
+  <span class="hl-pr">--leading-snug</span>:    <span class="hl-num">1.3</span>;
+  <span class="hl-pr">--leading-normal</span>:  <span class="hl-num">1.5</span>;
+  <span class="hl-pr">--leading-relaxed</span>: <span class="hl-num">1.625</span>;
+
+  <span class="hl-cm">/* ── Letter Spacing ── */</span>
+  <span class="hl-pr">--tracking-tighter</span>: <span class="hl-num">-0.03em</span>;
+  <span class="hl-pr">--tracking-tight</span>:   <span class="hl-num">-0.015em</span>;
+  <span class="hl-pr">--tracking-wide</span>:    <span class="hl-num">0.025em</span>;
+  <span class="hl-pr">--tracking-wider</span>:   <span class="hl-num">0.05em</span>;
+  <span class="hl-pr">--tracking-widest</span>:  <span class="hl-num">0.1em</span>;
+<span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">3.4</span> Responsive Fluid Type</h3>
+  <pre data-lang="CSS"><span class="hl-cm">/* Clamp-based — headings scale with viewport */</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-fluid-display</span> <span class="hl-pn">{</span> <span class="hl-pr">font-size</span>: <span class="hl-fn">clamp</span>(<span class="hl-num">2.5rem</span>, <span class="hl-num">5vw</span> + <span class="hl-num">1rem</span>, <span class="hl-num">3.75rem</span>); <span class="hl-pn">}</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-fluid-h1</span>      <span class="hl-pn">{</span> <span class="hl-pr">font-size</span>: <span class="hl-fn">clamp</span>(<span class="hl-num">2rem</span>, <span class="hl-num">4vw</span> + <span class="hl-num">0.5rem</span>, <span class="hl-num">3rem</span>); <span class="hl-pn">}</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-fluid-h2</span>      <span class="hl-pn">{</span> <span class="hl-pr">font-size</span>: <span class="hl-fn">clamp</span>(<span class="hl-num">1.5rem</span>, <span class="hl-num">2.5vw</span> + <span class="hl-num">0.5rem</span>, <span class="hl-num">1.875rem</span>); <span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">3.5</span> Font Loading Strategy</h3>
+  <p>Fonts are loaded via Google Fonts with <code>font-display: swap</code> to prevent FOIT (flash of invisible text). Critical weights are preloaded. A <code>.fonts-loading</code> class on <code>&lt;html&gt;</code> provides a system-font fallback until fonts resolve, preventing layout shift.</p>
+  <pre data-lang="HTML"><span class="hl-tag">&lt;link</span> <span class="hl-at">rel</span>=<span class="hl-str">"preconnect"</span> <span class="hl-at">href</span>=<span class="hl-str">"https://fonts.googleapis.com"</span> <span class="hl-at">crossorigin</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;link</span> <span class="hl-at">rel</span>=<span class="hl-str">"preconnect"</span> <span class="hl-at">href</span>=<span class="hl-str">"https://fonts.gstatic.com"</span> <span class="hl-at">crossorigin</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-tag">&lt;script&gt;</span>
+  <span class="hl-kw">if</span> (<span class="hl-str">'fonts'</span> <span class="hl-kw">in</span> document) {
+    Promise.<span class="hl-fn">all</span>([
+      document.fonts.<span class="hl-fn">load</span>(<span class="hl-str">'700 1em "Plus Jakarta Sans"'</span>),
+      document.fonts.<span class="hl-fn">load</span>(<span class="hl-str">'400 1em "Inter"'</span>),
+    ]).<span class="hl-fn">then</span>(<span class="hl-pn">() =&gt;</span> {
+      document.documentElement.classList.<span class="hl-fn">remove</span>(<span class="hl-str">'fonts-loading'</span>);
+      document.documentElement.classList.<span class="hl-fn">add</span>(<span class="hl-str">'fonts-loaded'</span>);
+    });
+  }
+<span class="hl-tag">&lt;/script&gt;</span></pre>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="spacing"><span class="section-num">04</span> Spacing &amp; Layout</h2>
+
+  <h3><span class="sub-num">4.1</span> Spacing Scale (4px base)</h3>
+  <div class="demo-box" data-label="Spacing Tokens">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--space-3);">
+      <div style="text-align:center;"><div style="width:4px;height:4px;background:var(--nls-cyan);border-radius:1px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">1 · 4px</span></div>
+      <div style="text-align:center;"><div style="width:8px;height:8px;background:var(--nls-cyan);border-radius:1px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">2 · 8px</span></div>
+      <div style="text-align:center;"><div style="width:12px;height:12px;background:var(--nls-cyan);border-radius:2px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">3 · 12px</span></div>
+      <div style="text-align:center;"><div style="width:16px;height:16px;background:var(--nls-cyan);border-radius:2px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">4 · 16px</span></div>
+      <div style="text-align:center;"><div style="width:24px;height:24px;background:var(--nls-cyan);border-radius:3px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">6 · 24px</span></div>
+      <div style="text-align:center;"><div style="width:32px;height:32px;background:var(--nls-cyan);border-radius:4px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">8 · 32px</span></div>
+      <div style="text-align:center;"><div style="width:48px;height:48px;background:var(--nls-cyan);border-radius:6px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">12 · 48px</span></div>
+      <div style="text-align:center;"><div style="width:64px;height:64px;background:var(--nls-cyan);border-radius:8px;margin:0 auto var(--space-1);"></div><span class="font-mono text-muted" style="font-size:0.625rem;">16 · 64px</span></div>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">4.2</span> Breakpoints</h3>
+  <table>
+    <thead><tr><th>Token</th><th>Value</th><th>Target</th></tr></thead>
+    <tbody>
+      <tr><td><code>--breakpoint-sm</code></td><td>640px</td><td>Mobile landscape</td></tr>
+      <tr><td><code>--breakpoint-md</code></td><td>768px</td><td>Tablet portrait</td></tr>
+      <tr><td><code>--breakpoint-lg</code></td><td>1024px</td><td>Tablet landscape / small desktop</td></tr>
+      <tr><td><code>--breakpoint-xl</code></td><td>1280px</td><td>Desktop</td></tr>
+      <tr><td><code>--breakpoint-2xl</code></td><td>1536px</td><td>Wide desktop</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">4.3</span> Grid System</h3>
+  <pre data-lang="CSS"><span class="hl-pn">.</span><span class="hl-at">nls-grid</span> <span class="hl-pn">{</span>
+  <span class="hl-pr">display</span>: grid;
+  <span class="hl-pr">grid-template-columns</span>: <span class="hl-fn">repeat</span>(<span class="hl-num">12</span>, <span class="hl-num">1fr</span>);
+  <span class="hl-pr">gap</span>: <span class="hl-fn">var</span>(<span class="hl-pr">--space-6</span>);
+<span class="hl-pn">}</span>
+<span class="hl-kw">@media</span> (<span class="hl-at">max-width</span>: <span class="hl-num">768px</span>)  <span class="hl-pn">{</span> <span class="hl-pn">.</span><span class="hl-at">nls-grid</span> <span class="hl-pn">{</span> <span class="hl-pr">grid-template-columns</span>: <span class="hl-fn">repeat</span>(<span class="hl-num">4</span>, <span class="hl-num">1fr</span>); <span class="hl-pn">} }</span>
+<span class="hl-kw">@media</span> (<span class="hl-at">min-width</span>: <span class="hl-num">769px</span>) <span class="hl-kw">and</span> (<span class="hl-at">max-width</span>: <span class="hl-num">1024px</span>) <span class="hl-pn">{</span> <span class="hl-pn">.</span><span class="hl-at">nls-grid</span> <span class="hl-pn">{</span> <span class="hl-pr">grid-template-columns</span>: <span class="hl-fn">repeat</span>(<span class="hl-num">8</span>, <span class="hl-num">1fr</span>); <span class="hl-pn">} }</span></pre>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="iconography"><span class="section-num">05</span> Iconography</h2>
+
+  <p>Base system: <strong>Lucide</strong> (MIT, 24px grid, 1.5px stroke). Extended with custom logistics icons following the same conventions.</p>
+
+  <h3><span class="sub-num">5.1</span> Icon Sizing</h3>
+  <table>
+    <thead><tr><th>Token</th><th>Size</th><th>Context</th></tr></thead>
+    <tbody>
+      <tr><td><code>--icon-xs</code></td><td>14px</td><td>Inline caption text</td></tr>
+      <tr><td><code>--icon-sm</code></td><td>16px</td><td>Body text, table cells</td></tr>
+      <tr><td><code>--icon-md</code></td><td>20px</td><td>Buttons, form inputs</td></tr>
+      <tr><td><code>--icon-lg</code></td><td>24px</td><td>Navigation, section markers</td></tr>
+      <tr><td><code>--icon-xl</code></td><td>32px</td><td>Feature cards, empty states</td></tr>
+      <tr><td><code>--icon-2xl</code></td><td>48px</td><td>Hero features, onboarding</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">5.2</span> Custom Logistics Icons</h3>
+  <p>Five domain-specific SVG symbols supplement Lucide for logistics concepts. All follow the 24×24 viewBox, 1.5px stroke, round linecap/linejoin convention.</p>
+  <div class="demo-box" data-label="Custom Icons · 32px">
+    <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nls-cyan);"><rect x="3" y="7" width="18" height="14" rx="1"/><path d="M3 11h18"/><path d="M9 7v14"/><path d="M15 7v14"/><path d="M8 3l4 4 4-4"/></svg>
+        <div class="font-mono text-muted" style="font-size:0.625rem;margin-top:var(--space-2);">nls-crate</div>
+      </div>
+      <div style="text-align:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nls-cyan);"><path d="M12 2L8 8h8l-4-6z"/><path d="M12 8v7"/><path d="M9 22h6"/><path d="M10 15c0 2-2 3-2 5h8c0-2-2-3-2-5"/><circle cx="12" cy="15" r="1" fill="currentColor"/></svg>
+        <div class="font-mono text-muted" style="font-size:0.625rem;margin-top:var(--space-2);">nls-fragile</div>
+      </div>
+      <div style="text-align:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nls-cyan);"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8"/><path d="M8 11h5"/><path d="M8 15h3"/><circle cx="16" cy="15" r="3"/><path d="M16 13.5v1.5l1 1"/></svg>
+        <div class="font-mono text-muted" style="font-size:0.625rem;margin-top:var(--space-2);">nls-quote</div>
+      </div>
+      <div style="text-align:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nls-cyan);"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3"/><path d="M12 18v3"/><path d="M3 12h3"/><path d="M18 12h3"/><path d="M12 12l4-4" stroke-width="2"/></svg>
+        <div class="font-mono text-muted" style="font-size:0.625rem;margin-top:var(--space-2);">nls-tracking</div>
+      </div>
+      <div style="text-align:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nls-cyan);"><path d="M7 11V6a5 5 0 0110 0v5"/><path d="M5 14a2 2 0 012-2h10a2 2 0 012 2v3a5 5 0 01-5 5h-4a5 5 0 01-5-5v-3z"/><path d="M10 12v2"/><path d="M14 12v2"/></svg>
+        <div class="font-mono text-muted" style="font-size:0.625rem;margin-top:var(--space-2);">nls-white-glove</div>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">5.3</span> Interactive Icon Behavior</h3>
+  <pre data-lang="CSS"><span class="hl-pn">.</span><span class="hl-at">nls-icon--interactive</span><span class="hl-pn">:</span><span class="hl-kw">hover</span> <span class="hl-pn">{</span>
+  <span class="hl-pr">color</span>: <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan</span>);
+  <span class="hl-pr">background</span>: <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan-glow</span>);
+  <span class="hl-pr">transform</span>: <span class="hl-fn">translateY</span>(<span class="hl-num">-1px</span>);
+<span class="hl-pn">}</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-icon--interactive</span><span class="hl-pn">:</span><span class="hl-kw">active</span> <span class="hl-pn">{</span>
+  <span class="hl-pr">transform</span>: <span class="hl-fn">translateY</span>(<span class="hl-num">0</span>) <span class="hl-fn">scale</span>(<span class="hl-num">0.95</span>);
+<span class="hl-pn">}</span></pre>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="components"><span class="section-num">06</span> Components &amp; Widgets</h2>
+
+  <h3><span class="sub-num">6.1</span> Buttons</h3>
+  <div class="demo-box" data-label="Button Variants">
+    <div class="demo-row" style="margin-bottom:var(--space-4);">
+      <button class="nls-btn nls-btn--primary">Primary</button>
+      <button class="nls-btn nls-btn--secondary">Secondary</button>
+      <button class="nls-btn nls-btn--ghost">Ghost</button>
+      <button class="nls-btn nls-btn--danger">Danger</button>
+    </div>
+    <div class="demo-row">
+      <button class="nls-btn nls-btn--primary nls-btn--sm">Small</button>
+      <button class="nls-btn nls-btn--primary">Default</button>
+      <button class="nls-btn nls-btn--primary nls-btn--lg">Large</button>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">6.2</span> Cards</h3>
+  <div class="demo-box" data-label="Card Variants">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4);">
+      <div class="nls-card nls-card--interactive">
+        <h4 style="margin-top:0;">Standard Card</h4>
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:0;">Interactive with hover lift and cyan border glow.</p>
+      </div>
+      <div class="nls-card nls-card--glass">
+        <h4 style="margin-top:0;">Glass Card</h4>
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:0;">Backdrop blur + semi-transparent fill.</p>
+      </div>
+      <div class="nls-card nls-card--status" style="--status-color:var(--nls-status-transit);">
+        <h4 style="margin-top:0;">Status Card</h4>
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:0;">Colored top bar via <code>--status-color</code> custom property.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">6.3</span> Form Inputs</h3>
+  <div class="demo-box" data-label="Input States">
+    <div style="max-width:400px;">
+      <label class="nls-label">Tracking Number</label>
+      <input class="nls-input" type="text" placeholder="NLS-2026-XXXXX" style="margin-bottom:var(--space-4);">
+      <label class="nls-label">Email Address</label>
+      <input class="nls-input" type="email" value="brett@annexbrands.com" style="margin-bottom:var(--space-4);">
+      <label class="nls-label">Error State</label>
+      <input class="nls-input" type="text" value="Invalid entry" style="border-color:var(--nls-red);">
+      <p style="font-size:0.75rem;color:var(--nls-red);margin-top:var(--space-1);margin-bottom:0;">Tracking number format is invalid.</p>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">6.4</span> Badges &amp; Status Pills</h3>
+  <div class="demo-box" data-label="Status Badges">
+    <div class="demo-row">
+      <span class="nls-badge nls-badge--quoted">Quoted</span>
+      <span class="nls-badge nls-badge--booked">Booked</span>
+      <span class="nls-badge nls-badge--packed nls-badge--pulse">Packed</span>
+      <span class="nls-badge nls-badge--transit nls-badge--pulse">In Transit</span>
+      <span class="nls-badge nls-badge--delivered">Delivered</span>
+      <span class="nls-badge nls-badge--error">Exception</span>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">6.5</span> Shipment Status Tracker</h3>
+  <p>The signature NLS Digital component — a multi-step progress indicator for the shipment lifecycle.</p>
+  <div class="demo-box" data-label="Live Tracker">
+    <div class="nls-tracker" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="3" aria-label="Shipment progress: In Transit">
+      <div class="nls-tracker__step nls-tracker__step--complete">
+        <div class="nls-tracker__node">✓</div>
+        <span class="nls-tracker__label">Quoted</span>
+        <span class="nls-tracker__time">Feb 10, 14:22</span>
+      </div>
+      <div class="nls-tracker__step nls-tracker__step--complete">
+        <div class="nls-tracker__node">✓</div>
+        <span class="nls-tracker__label">Booked</span>
+        <span class="nls-tracker__time">Feb 10, 15:01</span>
+      </div>
+      <div class="nls-tracker__step nls-tracker__step--complete">
+        <div class="nls-tracker__node">✓</div>
+        <span class="nls-tracker__label">Packed</span>
+        <span class="nls-tracker__time">Feb 11, 09:30</span>
+      </div>
+      <div class="nls-tracker__step nls-tracker__step--active">
+        <div class="nls-tracker__node">4</div>
+        <span class="nls-tracker__label">In Transit</span>
+        <span class="nls-tracker__time">Est. Feb 14</span>
+      </div>
+      <div class="nls-tracker__step">
+        <div class="nls-tracker__node">5</div>
+        <span class="nls-tracker__label">Delivered</span>
+        <span class="nls-tracker__time">—</span>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">6.6</span> Toast Notifications</h3>
+  <div class="demo-box" data-label="Toast Variants" class="stagger">
+    <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+      <div class="nls-toast nls-toast--success">
+        <div><div class="nls-toast__title">Shipment Confirmed</div><div class="nls-toast__body">Tracking #NLS-2026-00847 is now active.</div></div>
+      </div>
+      <div class="nls-toast nls-toast--warning">
+        <div><div class="nls-toast__title">Customs Hold</div><div class="nls-toast__body">Documentation required for international clearance.</div></div>
+      </div>
+      <div class="nls-toast nls-toast--error">
+        <div><div class="nls-toast__title">Delivery Exception</div><div class="nls-toast__body">Address not found. Please update recipient details.</div></div>
+      </div>
+      <div class="nls-toast nls-toast--info">
+        <div><div class="nls-toast__title">Quote Ready</div><div class="nls-toast__body">Your instant quote for 3 items is ready to review.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="sub-num">6.7</span> Loading Skeletons</h3>
+  <div class="demo-box" data-label="Skeleton States">
+    <div class="nls-skeleton nls-skeleton--heading"></div>
+    <div class="nls-skeleton nls-skeleton--text" style="width:100%"></div>
+    <div class="nls-skeleton nls-skeleton--text" style="width:90%"></div>
+    <div class="nls-skeleton nls-skeleton--text" style="width:75%"></div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="code-api"><span class="section-num">07</span> Code &amp; API Display</h2>
+
+  <h3><span class="sub-num">7.1</span> Syntax Theme: NLS Midnight</h3>
+  <pre data-lang="JavaScript"><span class="hl-cm">// NLS Digital API — Create a shipment quote</span>
+<span class="hl-kw">const</span> response = <span class="hl-kw">await</span> <span class="hl-fn">fetch</span>(<span class="hl-str">'https://api.nls.com/v1/quotes'</span>, {
+  <span class="hl-pr">method</span>: <span class="hl-str">'POST'</span>,
+  <span class="hl-pr">headers</span>: {
+    <span class="hl-str">'Authorization'</span>: <span class="hl-str">`Bearer ${apiKey}`</span>,
+    <span class="hl-str">'Content-Type'</span>: <span class="hl-str">'application/json'</span>,
+  },
+  <span class="hl-pr">body</span>: JSON.<span class="hl-fn">stringify</span>({
+    <span class="hl-pr">origin</span>: { <span class="hl-pr">zip</span>: <span class="hl-str">'92108'</span>, <span class="hl-pr">country</span>: <span class="hl-str">'US'</span> },
+    <span class="hl-pr">destination</span>: { <span class="hl-pr">zip</span>: <span class="hl-str">'10001'</span>, <span class="hl-pr">country</span>: <span class="hl-str">'US'</span> },
+    <span class="hl-pr">items</span>: [{
+      <span class="hl-pr">description</span>: <span class="hl-str">'Antique oil painting, framed'</span>,
+      <span class="hl-pr">weight_lbs</span>: <span class="hl-num">15</span>,
+      <span class="hl-pr">dimensions</span>: { <span class="hl-pr">l</span>: <span class="hl-num">36</span>, <span class="hl-pr">w</span>: <span class="hl-num">4</span>, <span class="hl-pr">h</span>: <span class="hl-num">28</span> },
+      <span class="hl-pr">declared_value</span>: <span class="hl-num">4500</span>,
+      <span class="hl-pr">fragile</span>: <span class="hl-bl">true</span>,
+    }],
+    <span class="hl-pr">service_tier</span>: <span class="hl-str">'white_glove'</span>,
+  }),
+});
+
+<span class="hl-kw">const</span> { <span class="hl-pr">quote_id</span>, <span class="hl-pr">total</span>, <span class="hl-pr">eta</span> } = <span class="hl-kw">await</span> response.<span class="hl-fn">json</span>();
+console.<span class="hl-fn">log</span>(<span class="hl-str">`Quote </span>${quote_id}<span class="hl-str">: $</span>${total}<span class="hl-str"> — ETA </span>${eta}<span class="hl-str">`</span>);</pre>
+
+  <h3><span class="sub-num">7.2</span> Syntax Color Mapping</h3>
+  <table>
+    <thead><tr><th>Token Type</th><th>Color</th><th>Hex</th></tr></thead>
+    <tbody>
+      <tr><td>Keywords (<code>const</code>, <code>await</code>, <code>if</code>)</td><td><span style="color:#C792EA;">■</span> Purple</td><td><code>#C792EA</code></td></tr>
+      <tr><td>Strings</td><td><span style="color:#C3E88D;">■</span> Green</td><td><code>#C3E88D</code></td></tr>
+      <tr><td>Numbers</td><td><span style="color:#F78C6C;">■</span> Orange</td><td><code>#F78C6C</code></td></tr>
+      <tr><td>Functions</td><td><span style="color:#82AAFF;">■</span> Blue</td><td><code>#82AAFF</code></td></tr>
+      <tr><td>Properties</td><td><span style="color:var(--nls-cyan-bright);">■</span> Cyan</td><td><code>#3EDBDC</code></td></tr>
+      <tr><td>Comments</td><td><span style="color:#546E7A;">■</span> Steel</td><td><code>#546E7A</code></td></tr>
+      <tr><td>Booleans</td><td><span style="color:#FF5370;">■</span> Red</td><td><code>#FF5370</code></td></tr>
+      <tr><td>HTML Tags</td><td><span style="color:#F07178;">■</span> Coral</td><td><code>#F07178</code></td></tr>
+      <tr><td>Attributes</td><td><span style="color:#FFCB6B;">■</span> Yellow</td><td><code>#FFCB6B</code></td></tr>
+    </tbody>
+  </table>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="motion"><span class="section-num">08</span> Motion &amp; Animation</h2>
+
+  <h3><span class="sub-num">8.1</span> Easing Curves</h3>
+  <table>
+    <thead><tr><th>Name</th><th>Value</th><th>Use Case</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Standard</strong></td><td><code>cubic-bezier(0.2, 0, 0, 1)</code></td><td>UI feedback — hover, focus, toggle</td></tr>
+      <tr><td><strong>Enter</strong></td><td><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td><td>Elements appearing — modals, toasts, dropdowns</td></tr>
+      <tr><td><strong>Exit</strong></td><td><code>cubic-bezier(0.4, 0, 0.7, 0.2)</code></td><td>Elements disappearing — close, dismiss</td></tr>
+      <tr><td><strong>Spring</strong></td><td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td><td>Playful interactions — drag, bounce</td></tr>
+      <tr><td><strong>Glide</strong></td><td><code>cubic-bezier(0.25, 0.1, 0.25, 1)</code></td><td>Long-distance — page/route transitions</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">8.2</span> Duration Scale</h3>
+  <table>
+    <thead><tr><th>Token</th><th>Duration</th><th>Context</th></tr></thead>
+    <tbody>
+      <tr><td><code>--dur-instant</code></td><td>50ms</td><td>Checkbox, toggle snap</td></tr>
+      <tr><td><code>--dur-fast</code></td><td>100ms</td><td>Button press feedback</td></tr>
+      <tr><td><code>--dur-normal</code></td><td>200ms</td><td>Hover states, focus rings</td></tr>
+      <tr><td><code>--dur-moderate</code></td><td>300ms</td><td>Dropdowns, tooltips</td></tr>
+      <tr><td><code>--dur-slow</code></td><td>400ms</td><td>Modals, page sections</td></tr>
+      <tr><td><code>--dur-slower</code></td><td>600ms</td><td>Route transitions, hero reveals</td></tr>
+      <tr><td><code>--dur-slowest</code></td><td>1000ms</td><td>Splash sequences, onboarding</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">8.3</span> Keyframe Library</h3>
+  <pre data-lang="CSS"><span class="hl-cm">/* Spinner — loading buttons, async indicators */</span>
+<span class="hl-kw">@keyframes</span> <span class="hl-fn">nls-spin</span> <span class="hl-pn">{</span> <span class="hl-kw">to</span> <span class="hl-pn">{</span> <span class="hl-pr">transform</span>: <span class="hl-fn">rotate</span>(<span class="hl-num">360deg</span>); <span class="hl-pn">} }</span>
+
+<span class="hl-cm">/* Pulse glow — active tracking node */</span>
+<span class="hl-kw">@keyframes</span> <span class="hl-fn">nls-glow-pulse</span> <span class="hl-pn">{</span>
+  <span class="hl-num">0%</span>, <span class="hl-num">100%</span> <span class="hl-pn">{</span> <span class="hl-pr">box-shadow</span>: <span class="hl-num">0 0 0 4px</span> <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan-glow</span>); <span class="hl-pn">}</span>
+  <span class="hl-num">50%</span>       <span class="hl-pn">{</span> <span class="hl-pr">box-shadow</span>: <span class="hl-num">0 0 0 8px</span> <span class="hl-fn">rgba</span>(<span class="hl-num">10,205,207,0.05</span>); <span class="hl-pn">}</span>
+<span class="hl-pn">}</span>
+
+<span class="hl-cm">/* Fade in up — general entrance */</span>
+<span class="hl-kw">@keyframes</span> <span class="hl-fn">nls-fade-in-up</span> <span class="hl-pn">{</span>
+  <span class="hl-kw">from</span> <span class="hl-pn">{</span> <span class="hl-pr">opacity</span>: <span class="hl-num">0</span>; <span class="hl-pr">transform</span>: <span class="hl-fn">translateY</span>(<span class="hl-num">24px</span>); <span class="hl-pn">}</span>
+  <span class="hl-kw">to</span>   <span class="hl-pn">{</span> <span class="hl-pr">opacity</span>: <span class="hl-num">1</span>; <span class="hl-pr">transform</span>: <span class="hl-fn">translateY</span>(<span class="hl-num">0</span>); <span class="hl-pn">}</span>
+<span class="hl-pn">}</span>
+
+<span class="hl-cm">/* Scale in — modals, dialogs */</span>
+<span class="hl-kw">@keyframes</span> <span class="hl-fn">nls-scale-in</span> <span class="hl-pn">{</span>
+  <span class="hl-kw">from</span> <span class="hl-pn">{</span> <span class="hl-pr">opacity</span>: <span class="hl-num">0</span>; <span class="hl-pr">transform</span>: <span class="hl-fn">scale</span>(<span class="hl-num">0.92</span>); <span class="hl-pn">}</span>
+  <span class="hl-kw">to</span>   <span class="hl-pn">{</span> <span class="hl-pr">opacity</span>: <span class="hl-num">1</span>; <span class="hl-pr">transform</span>: <span class="hl-fn">scale</span>(<span class="hl-num">1</span>); <span class="hl-pn">}</span>
+<span class="hl-pn">}</span>
+
+<span class="hl-cm">/* Shimmer — skeleton loading */</span>
+<span class="hl-kw">@keyframes</span> <span class="hl-fn">nls-shimmer</span> <span class="hl-pn">{</span>
+  <span class="hl-num">0%</span>   <span class="hl-pn">{</span> <span class="hl-pr">background-position</span>: <span class="hl-num">-200%</span> <span class="hl-num">0</span>; <span class="hl-pn">}</span>
+  <span class="hl-num">100%</span> <span class="hl-pn">{</span> <span class="hl-pr">background-position</span>:  <span class="hl-num">200%</span> <span class="hl-num">0</span>; <span class="hl-pn">}</span>
+<span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">8.4</span> Staggered Entry</h3>
+  <p>Apply <code>.nls-stagger</code> to a parent to auto-delay children's entrance animation by 50ms increments (capped at 400ms for 9+ children).</p>
+  <pre data-lang="CSS"><span class="hl-pn">.</span><span class="hl-at">nls-stagger</span> > * <span class="hl-pn">{</span>
+  <span class="hl-pr">animation</span>: nls-fade-in-up <span class="hl-num">300ms</span> <span class="hl-fn">var</span>(<span class="hl-pr">--ease-enter</span>) both;
+<span class="hl-pn">}</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-stagger</span> > *:<span class="hl-kw">nth-child</span>(<span class="hl-num">1</span>) <span class="hl-pn">{</span> <span class="hl-pr">animation-delay</span>: <span class="hl-num">0ms</span>;   <span class="hl-pn">}</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-stagger</span> > *:<span class="hl-kw">nth-child</span>(<span class="hl-num">2</span>) <span class="hl-pn">{</span> <span class="hl-pr">animation-delay</span>: <span class="hl-num">50ms</span>;  <span class="hl-pn">}</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-stagger</span> > *:<span class="hl-kw">nth-child</span>(<span class="hl-num">3</span>) <span class="hl-pn">{</span> <span class="hl-pr">animation-delay</span>: <span class="hl-num">100ms</span>; <span class="hl-pn">}</span>
+<span class="hl-cm">/* ... through nth-child(8) at 350ms */</span></pre>
+
+  <h3><span class="sub-num">8.5</span> Scroll-Triggered Reveal</h3>
+  <pre data-lang="JavaScript"><span class="hl-cm">// Add data-nls-reveal to any element for scroll-triggered entrance</span>
+<span class="hl-kw">const</span> observer = <span class="hl-kw">new</span> <span class="hl-fn">IntersectionObserver</span>(
+  (entries) => {
+    entries.<span class="hl-fn">forEach</span>(entry => {
+      <span class="hl-kw">if</span> (entry.isIntersecting) {
+        entry.target.dataset.<span class="hl-pr">nlsReveal</span> = <span class="hl-str">'visible'</span>;
+        observer.<span class="hl-fn">unobserve</span>(entry.target);
+      }
+    });
+  },
+  { <span class="hl-pr">threshold</span>: <span class="hl-num">0.15</span>, <span class="hl-pr">rootMargin</span>: <span class="hl-str">'0px 0px -60px 0px'</span> }
+);
+document.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str">'[data-nls-reveal]'</span>).<span class="hl-fn">forEach</span>(el => observer.<span class="hl-fn">observe</span>(el));</pre>
+
+  <h3><span class="sub-num">8.6</span> Reduced Motion</h3>
+  <pre data-lang="CSS"><span class="hl-kw">@media</span> (<span class="hl-at">prefers-reduced-motion</span>: reduce) <span class="hl-pn">{</span>
+  *, *::before, *::after <span class="hl-pn">{</span>
+    <span class="hl-pr">animation-duration</span>: <span class="hl-num">0.01ms</span> <span class="hl-kw">!important</span>;
+    <span class="hl-pr">transition-duration</span>: <span class="hl-num">0.01ms</span> <span class="hl-kw">!important</span>;
+  <span class="hl-pn">}</span>
+  <span class="hl-cm">/* Preserve functional spinner for loading states */</span>
+  <span class="hl-pn">.</span><span class="hl-at">nls-btn--loading</span>::after <span class="hl-pn">{</span>
+    <span class="hl-pr">animation-duration</span>: <span class="hl-num">1.2s</span> <span class="hl-kw">!important</span>;
+    <span class="hl-pr">animation-iteration-count</span>: infinite <span class="hl-kw">!important</span>;
+  <span class="hl-pn">}</span>
+<span class="hl-pn">}</span></pre>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="surfaces"><span class="section-num">09</span> Surfaces &amp; Effects</h2>
+
+  <h3><span class="sub-num">9.1</span> Glassmorphism</h3>
+  <div class="demo-box" data-label="Glass Variants" style="background-image:var(--nls-gradient-mesh);background-color:var(--nls-midnight);">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+      <div class="nls-card--glass" style="padding:var(--space-6);border-radius:var(--radius-xl);">
+        <h4 style="margin-top:0;">Standard Glass</h4>
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:0;">blur(20px) saturate(1.5)</p>
+      </div>
+      <div style="background:rgba(20,28,32,0.75);backdrop-filter:blur(40px) saturate(1.8);border:1px solid rgba(10,205,207,0.08);border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--nls-shadow-lg);">
+        <h4 style="margin-top:0;">Elevated Glass</h4>
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:0;">blur(40px) saturate(1.8) + shadow</p>
+      </div>
+    </div>
+  </div>
+  <pre data-lang="CSS"><span class="hl-pn">.</span><span class="hl-at">nls-glass</span> <span class="hl-pn">{</span>
+  <span class="hl-pr">background</span>: <span class="hl-fn">var</span>(<span class="hl-pr">--nls-glass</span>);
+  <span class="hl-pr">backdrop-filter</span>: <span class="hl-fn">blur</span>(<span class="hl-num">20px</span>) <span class="hl-fn">saturate</span>(<span class="hl-num">1.5</span>);
+  <span class="hl-pr">border</span>: <span class="hl-num">1px</span> solid <span class="hl-fn">var</span>(<span class="hl-pr">--nls-glass-border</span>);
+<span class="hl-pn">}</span>
+<span class="hl-cm">/* Fallback for no backdrop-filter support */</span>
+<span class="hl-kw">@supports not</span> (<span class="hl-pr">backdrop-filter</span>: <span class="hl-fn">blur</span>(<span class="hl-num">1px</span>)) <span class="hl-pn">{</span>
+  <span class="hl-pn">.</span><span class="hl-at">nls-glass</span> <span class="hl-pn">{</span> <span class="hl-pr">background</span>: <span class="hl-fn">rgba</span>(<span class="hl-num">20,28,32,0.95</span>); <span class="hl-pn">}</span>
+<span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">9.2</span> Glow Border</h3>
+  <div class="demo-box" data-label="Glow Effect">
+    <div class="nls-glow" style="display:inline-block;border-radius:var(--radius-lg);padding:var(--space-6);background:var(--bg-surface);">
+      <h4 style="margin:0 0 var(--space-2);">Featured Content</h4>
+      <p style="font-size:0.875rem;color:var(--text-secondary);margin:0;">Gradient border using mask-composite for a glowing edge effect.</p>
+    </div>
+  </div>
+  <pre data-lang="CSS"><span class="hl-pn">.</span><span class="hl-at">nls-glow</span>::before <span class="hl-pn">{</span>
+  <span class="hl-pr">content</span>: <span class="hl-str">''</span>; <span class="hl-pr">position</span>: absolute; <span class="hl-pr">inset</span>: <span class="hl-num">-1px</span>;
+  <span class="hl-pr">border-radius</span>: inherit; <span class="hl-pr">padding</span>: <span class="hl-num">1px</span>;
+  <span class="hl-pr">background</span>: <span class="hl-fn">linear-gradient</span>(<span class="hl-num">135deg</span>,
+    <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan</span>) <span class="hl-num">0%</span>, transparent <span class="hl-num">40%</span>,
+    transparent <span class="hl-num">60%</span>, <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan-muted</span>) <span class="hl-num">100%</span>);
+  <span class="hl-pr">-webkit-mask</span>:
+    <span class="hl-fn">linear-gradient</span>(#fff 0 0) content-box,
+    <span class="hl-fn">linear-gradient</span>(#fff 0 0);
+  <span class="hl-pr">-webkit-mask-composite</span>: xor;
+  <span class="hl-pr">mask-composite</span>: exclude;
+<span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">9.3</span> Animated Rotating Glow</h3>
+  <pre data-lang="CSS"><span class="hl-cm">/* Requires @property for animated CSS custom property */</span>
+<span class="hl-kw">@property</span> <span class="hl-pr">--glow-angle</span> <span class="hl-pn">{</span>
+  <span class="hl-pr">syntax</span>: <span class="hl-str">'&lt;angle&gt;'</span>;
+  <span class="hl-pr">initial-value</span>: <span class="hl-num">0deg</span>;
+  <span class="hl-pr">inherits</span>: <span class="hl-bl">false</span>;
+<span class="hl-pn">}</span>
+
+<span class="hl-pn">.</span><span class="hl-at">nls-glow--animated</span>::before <span class="hl-pn">{</span>
+  <span class="hl-pr">background</span>: <span class="hl-fn">conic-gradient</span>(
+    <span class="hl-kw">from</span> <span class="hl-fn">var</span>(<span class="hl-pr">--glow-angle</span>, <span class="hl-num">0deg</span>),
+    transparent <span class="hl-num">0%</span>, <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan</span>) <span class="hl-num">10%</span>,
+    transparent <span class="hl-num">20%</span>, transparent <span class="hl-num">100%</span>
+  );
+  <span class="hl-pr">animation</span>: glow-rotate <span class="hl-num">4s</span> linear infinite;
+<span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">9.4</span> Noise Texture Overlay</h3>
+  <pre data-lang="CSS"><span class="hl-cm">/* SVG-based noise — no external assets needed */</span>
+<span class="hl-pn">.</span><span class="hl-at">nls-noise</span>::after <span class="hl-pn">{</span>
+  <span class="hl-pr">content</span>: <span class="hl-str">''</span>;
+  <span class="hl-pr">position</span>: absolute; <span class="hl-pr">inset</span>: <span class="hl-num">0</span>;
+  <span class="hl-pr">background</span>: <span class="hl-fn">url</span>(<span class="hl-str">"data:image/svg+xml,..."</span>);
+  <span class="hl-pr">opacity</span>: <span class="hl-num">0.4</span>;
+  <span class="hl-pr">pointer-events</span>: none;
+  <span class="hl-pr">mix-blend-mode</span>: overlay;
+<span class="hl-pn">}</span></pre>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="accessibility"><span class="section-num">10</span> Accessibility</h2>
+
+  <h3><span class="sub-num">10.1</span> Contrast Ratios</h3>
+  <table>
+    <thead><tr><th>Foreground</th><th>Background</th><th>Ratio</th><th>WCAG</th></tr></thead>
+    <tbody>
+      <tr><td><code>--nls-snow</code> #EDF1F3</td><td><code>--nls-midnight</code> #0B1215</td><td>16.2:1</td><td><strong>AAA</strong></td></tr>
+      <tr><td><code>--nls-cloud</code> #C8D2D8</td><td><code>--nls-midnight</code></td><td>11.4:1</td><td><strong>AAA</strong></td></tr>
+      <tr><td><code>--nls-mist</code> #94A3AD</td><td><code>--nls-midnight</code></td><td>6.8:1</td><td><strong>AA</strong></td></tr>
+      <tr><td><code>--nls-cyan</code> #0ACDCF</td><td><code>--nls-midnight</code></td><td>8.9:1</td><td><strong>AAA</strong></td></tr>
+      <tr><td><code>--nls-ash</code> #5A6872</td><td><code>--nls-midnight</code></td><td>4.1:1</td><td>AA large</td></tr>
+      <tr><td><code>--nls-light-text</code> #1A2530</td><td><code>--nls-light-bg</code> #F4F6F8</td><td>14.8:1</td><td><strong>AAA</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">10.2</span> Focus Management</h3>
+  <pre data-lang="CSS"><span class="hl-cm">/* Visible for keyboard, hidden for mouse */</span>
+<span class="hl-pn">:</span><span class="hl-kw">focus-visible</span> <span class="hl-pn">{</span>
+  <span class="hl-pr">outline</span>: <span class="hl-num">2px</span> solid <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan</span>);
+  <span class="hl-pr">outline-offset</span>: <span class="hl-num">2px</span>;
+  <span class="hl-pr">box-shadow</span>: <span class="hl-num">0 0 0 4px</span> <span class="hl-fn">var</span>(<span class="hl-pr">--nls-cyan-glow</span>);
+<span class="hl-pn">}</span>
+<span class="hl-pn">:</span><span class="hl-kw">focus</span>:not(<span class="hl-pn">:</span><span class="hl-kw">focus-visible</span>) <span class="hl-pn">{</span>
+  <span class="hl-pr">outline</span>: none;
+  <span class="hl-pr">box-shadow</span>: none;
+<span class="hl-pn">}</span></pre>
+
+  <h3><span class="sub-num">10.3</span> ARIA Patterns</h3>
+  <pre data-lang="HTML"><span class="hl-cm">&lt;!-- Status tracker --&gt;</span>
+<span class="hl-tag">&lt;div</span> <span class="hl-at">class</span>=<span class="hl-str">"nls-tracker"</span> <span class="hl-at">role</span>=<span class="hl-str">"progressbar"</span>
+  <span class="hl-at">aria-valuemin</span>=<span class="hl-str">"0"</span> <span class="hl-at">aria-valuemax</span>=<span class="hl-str">"5"</span> <span class="hl-at">aria-valuenow</span>=<span class="hl-str">"3"</span>
+  <span class="hl-at">aria-label</span>=<span class="hl-str">"Shipment progress: In Transit"</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-cm">&lt;!-- Toast notification --&gt;</span>
+<span class="hl-tag">&lt;div</span> <span class="hl-at">class</span>=<span class="hl-str">"nls-toast"</span> <span class="hl-at">role</span>=<span class="hl-str">"alert"</span> <span class="hl-at">aria-live</span>=<span class="hl-str">"assertive"</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-cm">&lt;!-- Sortable table header --&gt;</span>
+<span class="hl-tag">&lt;th</span> <span class="hl-at">data-sortable</span> <span class="hl-at">aria-sort</span>=<span class="hl-str">"ascending"</span> <span class="hl-at">role</span>=<span class="hl-str">"columnheader"</span><span class="hl-tag">&gt;</span></pre>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="application"><span class="section-num">11</span> Brand Application</h2>
+
+  <h3><span class="sub-num">11.1</span> Wordmark</h3>
+  <div class="demo-box" data-label="Wordmark Specification">
+    <div style="display:flex;flex-direction:column;gap:var(--space-8);">
+      <div>
+        <p class="nls-label" style="margin-bottom:var(--space-3);">Dark Background (Primary)</p>
+        <span style="font-family:var(--font-display);font-weight:800;font-size:2rem;color:var(--nls-cyan);letter-spacing:-0.015em;">NLS<span style="color:var(--text-tertiary);font-weight:400;">digital</span></span>
+      </div>
+      <div style="background:var(--nls-white);padding:var(--space-6);border-radius:var(--radius-lg);">
+        <p class="nls-label" style="margin-bottom:var(--space-3);color:#5A6872;">Light Background</p>
+        <span style="font-family:var(--font-display);font-weight:800;font-size:2rem;color:var(--nls-cyan-muted);letter-spacing:-0.015em;">NLS<span style="color:#94A3AD;font-weight:400;">digital</span></span>
+      </div>
+    </div>
+  </div>
+  <p>The wordmark combines <strong>"NLS"</strong> in <code>--nls-cyan</code> at <code>weight 800</code> with <strong>"digital"</strong> in <code>--text-tertiary</code> at <code>weight 400</code>, both in Plus Jakarta Sans. Minimum clear space equals the cap-height of "N". Minimum size: 80px wide (digital), 20mm (print).</p>
+
+  <h3><span class="sub-num">11.2</span> File Architecture</h3>
+  <pre data-lang="tree">nls-digital-brand/
+├── BRAND_GUIDELINES.html       ← This document
+├── tokens/
+│   ├── nls-tokens.css           ← All CSS custom properties
+│   ├── nls-tokens.json          ← Design tokens (Style Dictionary)
+│   └── nls-tokens.scss          ← SCSS variables
+├── css/
+│   ├── nls-reset.css            ← Minimal CSS reset
+│   ├── nls-typography.css       ← Type scale + font loading
+│   ├── nls-components.css       ← All component styles
+│   └── nls-animations.css       ← Keyframes + utilities
+├── icons/
+│   ├── nls-logistics.svg        ← Custom icon sprite
+│   └── README.md
+├── fonts/
+│   └── README.md                ← License + loading instructions
+└── examples/
+    ├── dashboard.html            ← Reference implementation
+    ├── tracking-page.html        ← Shipment tracking layout
+    └── api-docs.html             ← API documentation theme</pre>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="governance"><span class="section-num">12</span> Governance</h2>
+
+  <h3><span class="sub-num">12.1</span> Versioning</h3>
+  <table>
+    <thead><tr><th>Version</th><th>Date</th><th>Summary</th></tr></thead>
+    <tbody>
+      <tr><td>2.0</td><td>2026-02-13</td><td>Initial digital division brand system</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="sub-num">12.2</span> Change Process</h3>
+  <p>
+    All modifications require review by the NLS Digital Design Lead and Engineering Lead.
+    Token changes must propagate through the design token pipeline (JSON → CSS / SCSS / JS) before deployment.
+    Semantic versioning applies: <strong>major</strong> = breaking visual changes, <strong>minor</strong> = new components/tokens, <strong>patch</strong> = corrections.
+  </p>
+  <p>
+    The single source of truth is <code>nls-tokens.json</code>. Platform-specific formats (CSS custom properties, SCSS variables, iOS/Android constants, Figma variables) are generated via Style Dictionary. Direct editing of derived formats is prohibited.
+  </p>
+
+
+  <hr>
+  <footer style="text-align:center;padding:var(--space-12) 0 var(--space-8);">
+    <p style="font-family:var(--font-display);font-weight:800;font-size:1.125rem;color:var(--nls-cyan);letter-spacing:-0.015em;margin-bottom:var(--space-2);">NLS<span style="color:var(--text-tertiary);font-weight:400;">digital</span></p>
+    <p style="font-size:0.75rem;color:var(--text-tertiary);margin-bottom:var(--space-1);">A division of Annex Brands, Inc. · 7580 Metropolitan Drive, Suite 200, San Diego, CA 92108</p>
+    <p style="font-size:0.75rem;color:var(--text-tertiary);margin-bottom:0;">© 2026 Annex Brands, Inc. All rights reserved. Confidential — Internal Use Only.</p>
+  </footer>
+
+</main>
+
+<!-- Scroll Reveal Script -->
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.dataset.reveal = 'visible'; observer.unobserve(e.target); }
+    }),
+    { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+  );
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
