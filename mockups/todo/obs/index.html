@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ABConnect Observability (ECS) Rollout Checklist</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body { margin: 0; background: #0b0f14; color: #e6edf3; }
+    header { padding: 20px 16px; border-bottom: 1px solid #1f2a37; background: #0e141b; }
+    header h1 { margin: 0 0 6px 0; font-size: 18px; }
+    header p { margin: 0; color: #9aa4b2; font-size: 13px; line-height: 1.4; }
+
+    main { max-width: 980px; margin: 0 auto; padding: 16px; }
+    .bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+    button, input[type="text"], select {
+      background: #0e141b; border: 1px solid #263241; color: #e6edf3;
+      padding: 10px 12px; border-radius: 10px; font-size: 13px;
+    }
+    button { cursor: pointer; }
+    button:hover { border-color: #3a4a5d; }
+    .muted { color: #9aa4b2; font-size: 12px; }
+    .grid { display: grid; gap: 12px; grid-template-columns: repeat(12, 1fr); }
+    .card {
+      grid-column: span 12;
+      background: #0e141b; border: 1px solid #1f2a37; border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+    @media (min-width: 900px) {
+      .card { grid-column: span 6; }
+    }
+    .card h2 { margin: 0 0 8px 0; font-size: 15px; }
+    .card .meta { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+    .pill { font-size: 12px; color: #9aa4b2; border: 1px solid #263241; padding: 4px 8px; border-radius: 999px; }
+    .items { display: grid; gap: 8px; }
+    .item {
+      display: grid;
+      grid-template-columns: 22px 1fr auto;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border: 1px solid #1f2a37;
+      border-radius: 12px;
+      background: #0b1118;
+    }
+    .item input[type="checkbox"] { margin-top: 2px; }
+    .item .title { font-size: 13px; line-height: 1.3; }
+    .item .notes { margin-top: 6px; color: #9aa4b2; font-size: 12px; line-height: 1.35; white-space: pre-wrap; }
+    .item .actions { display: flex; gap: 6px; }
+    .small { padding: 6px 8px; font-size: 12px; border-radius: 10px; }
+    .danger { border-color: #5d2a2a; }
+    .danger:hover { border-color: #7a3333; }
+    .ok { color: #a7f3d0; }
+    .warn { color: #fde68a; }
+    .bad { color: #fca5a5; }
+    .footer { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border: 1px solid #263241; padding: 2px 6px; border-radius: 8px; color: #cbd5e1; }
+    textarea {
+      width: 100%;
+      min-height: 70px;
+      resize: vertical;
+      background: #0e141b;
+      border: 1px solid #263241;
+      color: #e6edf3;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>ABConnect Observability (ECS) Rollout Checklist</h1>
+  <p>
+    MVP-first plan. Everything is stored locally in your browser (<span class="kbd">localStorage</span>).
+    No AWS changes are executed from here—this is strictly a personal runbook tracker.
+  </p>
+</header>
+
+<main>
+  <div class="bar">
+    <input id="search" type="text" placeholder="Search tasks (e.g., 'tempo', 'route53', 'canary', 'iam')..." size="44" />
+    <select id="filter">
+      <option value="all">All</option>
+      <option value="open">Open only</option>
+      <option value="done">Done only</option>
+    </select>
+    <button id="expandAll">Expand all notes</button>
+    <button id="collapseAll">Collapse notes</button>
+    <button id="export">Export JSON</button>
+    <button id="importBtn">Import JSON</button>
+    <input id="importFile" type="file" accept="application/json" style="display:none" />
+    <button id="reset" class="danger">Reset (local only)</button>
+    <span id="status" class="muted"></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="card" style="grid-column: span 12;">
+    <h2>Scratchpad</h2>
+    <div class="muted">Freeform notes. Useful for “what changed,” rollback points, command snippets, etc.</div>
+    <div style="margin-top:10px;">
+      <textarea id="scratch" placeholder="Example: Rolled OTEL endpoint to otlp-gw via Cloud Map; sampling 0.02; canary task def rev 118."></textarea>
+    </div>
+    <div class="footer">
+      <div class="muted">Tip: Keep rollback steps next to each phase. Treat every production change as reversible.</div>
+      <div class="muted">Saved automatically.</div>
+    </div>
+  </div>
+</main>
+
+<script>
+(() => {
+  const STORAGE_KEY = "abconnect_obs_rollout_v1";
+  const SCRATCH_KEY = "abconnect_obs_rollout_scratch_v1";
+
+  /** MVP checklist. Adjust anytime; "id" must remain stable for persistence. */
+  const DEFAULT_DATA = {
+    phases: [
+      {
+        id: "phase-a-mvp-foundation",
+        title: "Phase A — MVP foundation (no impact to prod API routing)",
+        items: [
+          {
+            id: "a1-scope",
+            title: "Define MVP scope: Traces first (Tempo + Collector). Defer Loki/Metrics unless required for incident response.",
+            notes: "Decision record: why traces-first; what success looks like (e.g., see Django request spans + DB spans).",
+            done: false
+          },
+          {
+            id: "a2-isolation",
+            title: "Confirm isolation rules: separate ECS services, separate SGs, separate DNS names. Do not touch existing prod API ALB/NLB/listeners.",
+            notes: "Non-negotiable: no changes to api.abconnect.co, no reuse of existing listeners/target groups.",
+            done: false
+          },
+          {
+            id: "a3-s3-bucket-tempo",
+            title: "Create S3 bucket for Tempo (encrypted, block public access, lifecycle policy).",
+            notes: "Retention: start modest (e.g., 7–14d) with lifecycle; can expand later. Ensure KMS/encryption policy matches your standards.",
+            done: false
+          },
+          {
+            id: "a4-iam-roles",
+            title: "Create IAM task roles: tempo-role (S3 access), otel-gateway-role (minimal; logs + optional config fetch).",
+            notes: "Principle of least privilege. Keep collector role minimal; ideally it does not need S3 if it only forwards to Tempo service.",
+            done: false
+          },
+          {
+            id: "a5-ecs-tempo-service",
+            title: "Deploy Tempo service in ECS (private subnets). Validate it can write to S3 and is healthy.",
+            notes: "MVP can be 1 task; HA later. Ensure security group only allows traffic from collector gateway SG.",
+            done: false
+          },
+          {
+            id: "a6-ecs-otel-gateway",
+            title: "Deploy OTel Collector Gateway service in ECS. Use Cloud Map service discovery initially (no LB).",
+            notes: "Expose OTLP ports internally; service name like otel-gateway.obs.local. Add CPU/mem limits and autoscaling later.",
+            done: false
+          },
+          {
+            id: "a7-observability-of-obs",
+            title: "Enable CloudWatch logs for Tempo + Collector. Add alarms for task restarts, CPU/mem saturation, 5xx (if applicable).",
+            notes: "Even at MVP, you need to know when the telemetry pipeline is failing.",
+            done: false
+          }
+        ]
+      },
+      {
+        id: "phase-b-canary",
+        title: "Phase B — Canary instrumentation (minimal blast radius)",
+        items: [
+          {
+            id: "b1-staging-first",
+            title: "Instrument staging first (or a non-critical service). Point OTEL exporter to Cloud Map DNS for otel-gateway.",
+            notes: "Start with low sampling (e.g., 1–5%). Ensure no latency impact; exporter timeouts should be conservative.",
+            done: false
+          },
+          {
+            id: "b2-verify-traces",
+            title: "Verify traces land end-to-end: request spans, DB spans, outbound HTTP spans (if used).",
+            notes: "Confirm you can query traces by service.name and route. If you don’t have Grafana yet, use Tempo/Jaeger query endpoint as applicable.",
+            done: false
+          },
+          {
+            id: "b3-log-correlation-plan",
+            title: "Plan log correlation: ensure Django/Gunicorn logs include trace_id/span_id (later: Loki).",
+            notes: "Immediate MVP may rely on journald + trace view. Decide if/when to ship logs to Loki.",
+            done: false
+          },
+          {
+            id: "b4-rollback",
+            title: "Document rollback: remove OTEL env vars or set exporter to 'disabled' endpoint; redeploy task definition.",
+            notes: "Rollback must be one edit + redeploy. Test rollback on staging.",
+            done: false
+          }
+        ]
+      },
+      {
+        id: "phase-c-prod-rollout",
+        title: "Phase C — Gradual prod rollout (config-only changes)",
+        items: [
+          {
+            id: "c1-prod-canary",
+            title: "Enable OTEL exporter on 1 prod task (or 5% of tasks). Keep sampling low.",
+            notes: "Use a separate task definition revision; verify stability before increasing rollout.",
+            done: false
+          },
+          {
+            id: "c2-scale-checks",
+            title: "Validate collector and tempo capacity under prod load; confirm S3 write rates and costs are acceptable.",
+            notes: "Watch: collector CPU/mem, retries, dropped spans, Tempo ingest errors, S3 request costs.",
+            done: false
+          },
+          {
+            id: "c3-internal-nlb",
+            title: "Add internal NLB for OTLP endpoint (recommended before broad prod adoption). Update apps to use stable DNS.",
+            notes: "This reduces DNS churn risk and simplifies multi-client ingestion. Keep Cloud Map as fallback.",
+            done: false
+          },
+          {
+            id: "c4-25-100",
+            title: "Rollout to 25% then 100% with clear stop/rollback criteria.",
+            notes: "Define SLOs: max added latency, error rates, collector queue/backpressure thresholds.",
+            done: false
+          }
+        ]
+      },
+      {
+        id: "phase-d-hardening",
+        title: "Phase D — Hardening (post-MVP)",
+        items: [
+          {
+            id: "d1-grafana-ecs",
+            title: "Deploy Grafana (ECS) with durable state (RDS Postgres or EFS) and authenticated access.",
+            notes: "Prefer RDS Postgres for Grafana DB for long-term. Put Grafana behind ALB + auth/SSO/VPN.",
+            done: false
+          },
+          {
+            id: "d2-loki",
+            title: "Add Loki for centralized logs (optional). Start with selective log shipping to control volume/cost.",
+            notes: "If you already have strong journald access patterns, add Loki only when it materially improves incident response.",
+            done: false
+          },
+          {
+            id: "d3-metrics-strategy",
+            title: "Decide metrics backend strategy (Prometheus vs managed vs Mimir).",
+            notes: "For very high scale, treat metrics as a first-class architecture decision; do not bolt it on blindly.",
+            done: false
+          },
+          {
+            id: "d4-runbooks",
+            title: "Finalize runbooks: 504 triage + trace workflow + rollback playbooks. Train via a game day.",
+            notes: "Make the “504 path” deterministic: Nginx error → trace → offending span → remediation.",
+            done: false
+          }
+        ]
+      }
+    ]
+  };
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return structuredClone(DEFAULT_DATA);
+      const parsed = JSON.parse(raw);
+
+      // Merge to include any new default tasks without losing user progress.
+      const merged = structuredClone(DEFAULT_DATA);
+      const byPhase = new Map(parsed.phases?.map(p => [p.id, p]));
+
+      for (const phase of merged.phases) {
+        const existingPhase = byPhase.get(phase.id);
+        if (!existingPhase) continue;
+
+        const byItem = new Map(existingPhase.items?.map(i => [i.id, i]));
+        for (const item of phase.items) {
+          const ex = byItem.get(item.id);
+          if (ex) {
+            item.done = !!ex.done;
+            item.notes = (typeof ex.notes === "string") ? ex.notes : item.notes;
+            item._expanded = !!ex._expanded;
+          }
+        }
+      }
+
+      return merged;
+    } catch {
+      return structuredClone(DEFAULT_DATA);
+    }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function loadScratch() {
+    return localStorage.getItem(SCRATCH_KEY) || "";
+  }
+
+  function saveScratch(val) {
+    localStorage.setItem(SCRATCH_KEY, val);
+  }
+
+  const elGrid = document.getElementById("grid");
+  const elSearch = document.getElementById("search");
+  const elFilter = document.getElementById("filter");
+  const elStatus = document.getElementById("status");
+  const elScratch = document.getElementById("scratch");
+
+  let state = loadState();
+  elScratch.value = loadScratch();
+
+  function computeProgress() {
+    let total = 0, done = 0;
+    for (const p of state.phases) {
+      for (const i of p.items) {
+        total += 1;
+        if (i.done) done += 1;
+      }
+    }
+    return { total, done, pct: total ? Math.round((done / total) * 100) : 0 };
+  }
+
+  function matchesSearch(item, q) {
+    if (!q) return true;
+    const hay = (item.title + "\n" + (item.notes || "")).toLowerCase();
+    return hay.includes(q.toLowerCase());
+  }
+
+  function matchesFilter(item, f) {
+    if (f === "all") return true;
+    if (f === "open") return !item.done;
+    if (f === "done") return item.done;
+    return true;
+  }
+
+  function render() {
+    const q = elSearch.value.trim();
+    const f = elFilter.value;
+
+    elGrid.innerHTML = "";
+    for (const phase of state.phases) {
+      // Filter phase by item match
+      const visibleItems = phase.items.filter(it => matchesSearch(it, q) && matchesFilter(it, f));
+      if (visibleItems.length === 0) continue;
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const header = document.createElement("div");
+      header.className = "meta";
+
+      const h2 = document.createElement("h2");
+      h2.textContent = phase.title;
+
+      const pill = document.createElement("div");
+      const phaseDone = phase.items.filter(i => i.done).length;
+      pill.className = "pill";
+      pill.textContent = `${phaseDone}/${phase.items.length} done`;
+
+      header.appendChild(h2);
+      header.appendChild(pill);
+
+      const itemsWrap = document.createElement("div");
+      itemsWrap.className = "items";
+
+      for (const item of visibleItems) {
+        const row = document.createElement("div");
+        row.className = "item";
+
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = item.done;
+        cb.addEventListener("change", () => {
+          item.done = cb.checked;
+          saveState(state);
+          refreshStatus();
+          render();
+        });
+
+        const content = document.createElement("div");
+
+        const title = document.createElement("div");
+        title.className = "title";
+        title.textContent = item.title;
+
+        const notes = document.createElement("div");
+        notes.className = "notes";
+        notes.style.display = item._expanded ? "block" : "none";
+        notes.textContent = item.notes || "";
+
+        content.appendChild(title);
+        content.appendChild(notes);
+
+        const actions = document.createElement("div");
+        actions.className = "actions";
+
+        const btnToggle = document.createElement("button");
+        btnToggle.className = "small";
+        btnToggle.textContent = item._expanded ? "Hide" : "Notes";
+        btnToggle.addEventListener("click", () => {
+          item._expanded = !item._expanded;
+          saveState(state);
+          render();
+        });
+
+        const btnEdit = document.createElement("button");
+        btnEdit.className = "small";
+        btnEdit.textContent = "Edit";
+        btnEdit.addEventListener("click", () => {
+          const next = prompt("Edit notes:", item.notes || "");
+          if (next === null) return;
+          item.notes = next;
+          item._expanded = true;
+          saveState(state);
+          render();
+        });
+
+        actions.appendChild(btnToggle);
+        actions.appendChild(btnEdit);
+
+        row.appendChild(cb);
+        row.appendChild(content);
+        row.appendChild(actions);
+
+        itemsWrap.appendChild(row);
+      }
+
+      card.appendChild(header);
+      card.appendChild(itemsWrap);
+      elGrid.appendChild(card);
+    }
+
+    refreshStatus();
+  }
+
+  function refreshStatus() {
+    const { total, done, pct } = computeProgress();
+    const colorClass = pct >= 80 ? "ok" : pct >= 40 ? "warn" : "bad";
+    elStatus.innerHTML = `Progress: <span class="${colorClass}">${done}/${total} (${pct}%)</span>`;
+  }
+
+  // Controls
+  document.getElementById("expandAll").addEventListener("click", () => {
+    for (const p of state.phases) for (const i of p.items) i._expanded = true;
+    saveState(state); render();
+  });
+
+  document.getElementById("collapseAll").addEventListener("click", () => {
+    for (const p of state.phases) for (const i of p.items) i._expanded = false;
+    saveState(state); render();
+  });
+
+  elSearch.addEventListener("input", render);
+  elFilter.addEventListener("change", render);
+
+  elScratch.addEventListener("input", () => saveScratch(elScratch.value));
+
+  document.getElementById("reset").addEventListener("click", () => {
+    const ok = confirm("Reset checklist and scratchpad in this browser only?");
+    if (!ok) return;
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(SCRATCH_KEY);
+    state = loadState();
+    elScratch.value = loadScratch();
+    render();
+  });
+
+  document.getElementById("export").addEventListener("click", () => {
+    const payload = {
+      exported_at: new Date().toISOString(),
+      checklist: state,
+      scratchpad: elScratch.value
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `abconnect-obs-rollout-${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("importBtn").addEventListener("click", () => {
+    document.getElementById("importFile").click();
+  });
+
+  document.getElementById("importFile").addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+
+      if (parsed.checklist?.phases) {
+        state = parsed.checklist;
+        saveState(state);
+      }
+      if (typeof parsed.scratchpad === "string") {
+        elScratch.value = parsed.scratchpad;
+        saveScratch(parsed.scratchpad);
+      }
+      render();
+      alert("Imported successfully.");
+    } catch (err) {
+      alert("Import failed: " + (err?.message || String(err)));
+    } finally {
+      e.target.value = "";
+    }
+  });
+
+  // Initial render
+  render();
+})();
+</script>
+</body>
+</html>
